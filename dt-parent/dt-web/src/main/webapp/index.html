@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <base href="/dt-web/"/> -->
+  <title>Design Thinking</title>
+  <!-- <meta charset="utf-8"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" media="all" href="css/bootstrap.min.css">
+   <style>
+  /* Note: Try to remove the following lines to see the effect of CSS positioning */
+  .affix {
+      top: 0;
+      width: 100%;
+  }
+  </style>
+    <link rel="stylesheet" media="all" href="css/style.css">
+    <script src="lib/jquery.js"></script>
+    <script src="lib/bootstrap.min.js"></script>
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/angular-ui-router.js"></script>
+    <script src="lib/uiBreadcrumbs.js"></script>
+    <script src="lib/draganddrop.js"></script>
+    <script src="lib/FileSaver.min.js"></script>
+    
+    <script src="module/module.js"></script>
+    <script src="controllers/loginController.js"></script>
+    <script src="controllers/homeController.js"></script>
+    <script src="controllers/menuController.js"></script>
+    <script src="controllers/projectController.js"></script>
+    <script src="controllers/modalController.js"></script>
+    <script src="controllers/selectProjectController.js"></script>
+    <script src="controllers/empathizeController.js"></script>
+    <script src="controllers/ideasController.js"></script>
+    <script src="controllers/defineController.js"></script>
+    <script src="controllers/prototypeController.js"></script>
+    <script src="controllers/prototypeFeedbackController.js"></script>
+    <script src="controllers/registrationController.js"></script>
+    <script src="controllers/roleController.js"></script>
+	<script src="controllers/summaryController.js"></script>
+	    
+    <script src="controllers/staticData.js"></script>
+    <script src="controllers/tempData.js"></script>
+    
+    <script src="services/loginService.js"></script>
+    <script src="services/projectService.js"></script>
+    <script src="services/userService.js"></script>
+    <script src="services/mediaService.js"></script>
+    <script src="services/observationService.js"></script>
+    <script src="services/registrationService.js"></script>
+    <script src="services/defineService.js"></script>
+    <script src="services/empathyService.js"></script>
+    <script src="services/ideaService.js"></script>
+    <script src="services/prototypeService.js"></script>
+    <script src="services/prototypeFeedbackService.js"></script> 
+    <script src="services/roleService.js"></script>
+    <script src="services/permissionService.js"></script>
+    
+    <script src="directives/modalDirective.js"></script>
+    <script src="directives/permissionDirective.js"></script>
+    <script src="directives/uploadDirective.js"></script>
+</head>
+<body ng-app = "designThinking">
+
+<div>
+    <div ui-view="head" class="container-fluid"></div>
+    <div ui-view="main" class="container-fluid"></div>
+    <div ui-view="details" class="container-fluid"></div>
+</div>
+
+</body>
+</html>

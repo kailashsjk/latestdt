@@ -1,0 +1,291 @@
+<div class="row">
+   <div class="col-md-2 col-xs-4 col-sm-4" style="font-weight: bold;">
+        Project Name :
+    </div>
+    <div class="col-md-3 col-xs-8 col-sm-8" style="margin-left:-5%">
+        {{project.projectName}}
+    </div>
+    <div class="col-md-2 col-xs-4 col-sm-4"><strong>Stage :</strong>
+    </div>
+    <div class="col-md-1 col-xs-4 col-sm-4 pull-left" style="margin-left:-5%">{{project.projectStage.projectStageDescription}}
+    </div>
+</div><br>
+<div class="panel">
+    <div class="panel-heading head" style="text-align:center"><div><strong>Prototypes</strong>
+    <button type="button" class="btn btn-primary pull-right" ng-click="createPrototype()" style="margin:-5px" permission="[2,6]">Create Prototype</button>
+    <div class="clearfix"></div>
+    </div>    
+    </div>
+</div>
+<div class="panel" ng-show="showCapturePrototype" style="border:1px solid black">
+    <div class="panel-heading head" style="text-align:center">Capture Prototype</div>
+    <div class="panel-body">
+		<div class="row">
+            <div class="col-sm-4">IdeaGroup<font color="red">*</font></div>
+            <div class="col-sm-8" ng-init="getIGID()">
+                <select class="form-control" ng-model="data.igroup1" ng-options="i.igid as i.igname for i in ideaGroup">
+                <option value=""></option>
+                </select>
+                <span ng-show="createPrototypeError1">Required</span>
+            </div>
+        </div><br>			        
+					        		            
+        <div class="row">
+            <div class="col-sm-4">Prototype Description<font color="red">*</font></div>
+            <div class="col-sm-8" >
+                <textarea class="form-control" type="text" ng-model="data.proDescription" rows="3"></textarea>
+                <span ng-show="createPrototypeError2">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Upload Media</div>
+             <div class="col-sm-8">
+                <form role="form">
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" value="1" ng-model="mediaType">Image
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" value="2" ng-model="mediaType">Audio
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" value="3" ng-model="mediaType">Video
+                    </label>
+                </form>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-lg-7">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                        Browse&hellip; <input type="file" fileread="vm.uploadme" size="50">
+                    </span> 
+                    </span>
+                    <input type="text" class="form-control" readonly placeholder="audio/video/image">
+                </div>
+            </div>
+            <div class="col-lg-1">
+            	<button type="button" class="btn btn-primary pull-right" ng-click="uploadMedia(vm.uploadme,mediaType,0)">Upload</button>
+            </div>
+        </div><br>
+        <div ng-repeat="uploadedDocument in uploadedDocuments">
+	        <div class="row">
+	        	 <div class="col-sm-4">&nbsp;</div>
+            	<div class="col-sm-8" id="delete-color"> {{uploadedDocument.documentName}} &nbsp;&nbsp;&nbsp;<a ng-click="removeDocument(uploadedDocument)" style="color:red;font-weight: bold;">&#x2716;</a> </div>
+	        </div>
+        </div><br>
+    </div>
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="cancelPrototype()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="addPrototype(data)">Submit</button>
+    </div><br>
+</div>
+<div class="panel" ng-show="showEdit" style="border:1px solid black">
+    <div class="panel-heading head" style="text-align:center">Edit Prototype</div>
+    <div class="panel-body">
+        <!-- <div class="row">
+            <div class="col-sm-4">Point Of Views</div>
+            <div class="col-sm-8">{{hmw}}             
+            </div>
+        </div><br> -->
+        <div class="row">
+            <div class="col-sm-4">Idea Groups</div>
+            <div class="col-sm-8">{{igname}}
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Prototype Description</div>
+            <div class="col-sm-8">
+                <textarea class="form-control" type="text" ng-model="editPrototype.prototypeDescription" rows="3"></textarea>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Upload Media</div>
+             <div class="col-sm-8">
+                <form role="form">
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" value="1" ng-model="mediaType">Image
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" value="2" ng-model="mediaType">Audio
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" value="3" ng-model="mediaType">Video
+                    </label>
+                </form>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-lg-7">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                        Browse&hellip; <input type="file" fileread="vm.uploadme" size="50">
+                    </span> 
+                    </span>
+                    <input type="text" class="form-control" readonly placeholder="audio/video/image">
+                </div>
+            </div>
+            <div class="col-lg-1">
+            	<button type="button" class="btn btn-primary pull-right" ng-click="uploadMedia(vm.uploadme,mediaType,editPrototype.prototypeId)">Upload</button>
+            </div>
+        </div><br>
+        <div ng-repeat="uploadedDocument in uploadedDocuments">
+	        <div class="row">
+	        	 <div class="col-sm-4">&nbsp;</div>
+            	<div class="col-sm-8" id="delete-color"> {{uploadedDocument.documentName}} &nbsp;&nbsp;&nbsp;<a ng-click="removeDocument(uploadedDocument)" style="color:red;font-weight: bold;">&#x2716;</a> </div>
+	        </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Ready for Test</div>
+             <div class="col-sm-8">
+                <form role="form">
+                      <input type="checkbox" name="test" ng-model="readyForTest">
+                </form>
+            </div>
+        </div><br>        
+    </div>
+
+    <div style="text-align: center" >
+    	<button type="button" class="btn btn-primary" ng-click="!(showEdit=false)">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="update(editPrototype)">Submit</button>
+    </div><br>
+</div>
+
+
+<div class="panel" ng-show="showView" style="border:1px solid black">
+    <div class="panel-heading head" style="text-align:center">View Prototype</div>
+    <div class="panel-body">
+        <!-- <div class="row">
+            <div class="col-sm-4">Point Of Views</div>
+            <div class="col-sm-8">{{hmw}}             
+            </div>
+        </div><br> -->
+        <div class="row">
+            <div class="col-sm-4">Idea Groups</div>
+            <div class="col-sm-8">{{viewPrototype.igname}}
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Prototype Description</div>
+            <div class="col-sm-8">
+            {{viewPrototype.prototypeDescription}}
+            </div>
+        </div><br>
+        <div ng-repeat="uploadedDocument in uploadedDocuments">
+	        <div class="row">
+	        	 <div class="col-sm-4">Prototype Documents&nbsp;</div>
+            	<div class="col-sm-8" id="delete-color"> {{uploadedDocument.documentName}} &nbsp;&nbsp;&nbsp;</div>
+	        </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Ready for test</div>
+            <div class="col-sm-8">
+            	<div ng-if="viewPrototype.test == 1">Yes</div> &nbsp;
+            	<div ng-if="viewPrototype.test == 0">No</div> &nbsp;
+            </div>
+        </div><br>
+        
+    </div>
+    <div style="text-align: center" >
+        <button type="button" class="btn btn-primary" ng-click="!(showView=false)">Cancel</button>
+<!--         <button type="button" class="btn btn-primary" ng-click="update(editPrototype)">Submit</button> -->
+    </div><br>
+</div>
+
+<div class="panel panel-default" ng-init="getActivePrototypes()">
+	<div class="table-responsive">
+         <table class="panel-body table table-hover">
+             <thead class="panel-heading">
+               <tr style="text-align:center">                            
+                 <th>Idea Group</th>
+                 <th>Prototype Description</th>
+                 <th class="ng-class:resize" style="text-align:center">Media</th>
+                 <th class="ng-class:resize">Created By</th>
+                 <th class="ng-class:resize">Updated Date</th>
+                 <th class="ng-class:resize">Status</th>
+                 <th style="text-align:left">
+                 <button class="btn btn-link btn-xs pull-left hidden-lg" ng-hide="tableSize" ng-click="expand()">Expand</button>
+                 <button class="btn btn-link btn-xs pull-left hidden-lg" ng-show="tableSize" ng-click="collapse()">collapse</button>
+                 <label>Actions</label> 
+                 <button type="button" ng-hide="showFlag" class="btn btn-link btn-xs pull-right" ng-click="getAllPrototype()">Show All</button>
+                 <button type="button" class="btn btn-link btn-xs pull-right" ng-show="showFlag" ng-click="getActivePrototypes()">Show Active</button></th>
+               </tr>
+             </thead>
+             <tbody>
+               <tr ng-repeat = "prototype in prototyping">                               
+                 <td title={{prototype.igname}}>{{prototype.ignameShort}}</td>
+                 <td title={{prototype.prototypeDescription}}>{{prototype.prototypeDescriptionShort}}</td>
+                 <td class="ng-class:resize" style="text-align:center"> <div ng-if="prototype.mediaFlag">&#10003;</div></td>
+                 <td class="ng-class:resize">{{prototype.createdBy}}</td>
+                 <td class="ng-class:resize">{{prototype.updatedDate}}</td>
+                 <td class="ng-class:resize"><div ng-if="prototype.test == 1">Test</div> &nbsp;</td>
+                 <td style="text-align:left">
+                 	<button type="button" style= "margin-right:10px" class="btn btn-primary btn-xs" ng-hide="flag[prototype.prototypeId]" ng-click="showMedia(prototype.prototypeId)" ng-disabled="!prototype.mediaFlag">Show</button>
+                 	<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs" ng-show="flag[prototype.prototypeId]" ng-click="hideMedia(prototype.prototypeId)" ng-disabled="!prototype.mediaFlag">Hide</button>
+                 	<button style= "margin-right:10px" type="button" ng-hide="flag1[prototype.prototypeId]" class="btn btn-primary btn-xs" ng-click="edit(prototype);" ng-if="prototype.deleteFlag==0"  permission="[2,6]">Edit</button>
+                 	<button type="button" class="btn btn-primary btn-xs" ng-click="view(prototype)" ng-if="prototype.deleteFlag==1" permission="[2,6]">View</button>
+                 	<button type="button" class="btn btn-primary btn-xs" ng-click="view(prototype)" permission="[3,4,5,7]">View</button>
+                 	<button type="button" class="btn btn-primary btn-xs" ng-click="deletePrototype(prototype.prototypeId)" ng-if="prototype.deleteFlag==0" permission="[2,6]">Deactivate</button>
+                 	<button type="button" class="btn btn-primary btn-xs" ng-click="activatePrototype(prototype.prototypeId)" ng-if="prototype.deleteFlag==1" permission="[2,6]">Activate</button>
+                 	<!-- <button type="button" style= "margin-right:10px" class="btn btn-primary btn-xs"  ng-click="setTest(prototype)" ng-if="prototype.deleteFlag==0 && prototype.test==0" >Test</button> -->
+                 </td>
+               </tr>                             
+             </tbody>
+         </table>
+    	</div>
+ </div>
+ <div ng-show="show1" >
+ 	<div class="row" >
+	 	<div class="col-lg-4 btn-group-vertical">
+			<div ng-repeat="uploadedDocument in uploadedDocuments">			
+				<button type="button" class="btn btn-link" ng-if="uploadedDocument.mediaType.mediaTypeID == 1"	ng-click="showImage(uploadedDocument)">{{uploadedDocument.documentName}}</button>
+				<button type="button" class="btn btn-link" ng-if="uploadedDocument.mediaType.mediaTypeID == 3"	ng-click="launchMedia($event, uploadedDocument)">{{uploadedDocument.documentName}}</button>				
+			</div>
+			<div ng-show="loading" style="text-align:center">
+				<img src="img/Loading.gif" />
+			</div>
+		</div>
+		<div class="col-lg-8">
+			<div ng-show="show2">
+				<img src="{{picurl}}" class="img-thumbnail" alt="Cinque Terre"
+					width="304" height="236">
+			</div>
+			<div ng-show="showvedio" style="text-align:center">
+				<video class="pull-right" controls autoplay width="640" height="440" id="video" ng-src="{{picurl}}"></video>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+<!-- <div style="text-align: center">    
+    <button type="button" class="btn btn-primary" ng-click="goToTest()">Go To Test</button>
+</div><br> -->
+
+<script>
+$(document).on('change', '.btn-file :file', function() {
+  var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+  input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).ready( function() {
+    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+        
+    });
+});
+</script>
+
+

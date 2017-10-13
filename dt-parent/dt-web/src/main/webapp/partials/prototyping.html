@@ -1,0 +1,201 @@
+<div class="row">
+        <div class="col-sm-2" style="font-weight: bold; margin-right: -100px;">
+    </div>
+    <div class="col-sm-5" style="margin-left:-10px">
+    </div>
+    <div class="col-sm-5  pull-right">
+        <button type="button" class="btn btn-primary pull-right" ng-click="!(showCapturePrototype=true)">Create Prototype</button>
+    </div>
+</div><br>
+<div class="panel" ng-show="showCapturePrototype" style="border:1px solid black">
+    <div class="panel-heading head" style="text-align:center">Capture Prototype</div>
+    <div class="panel-body">
+        <!-- <div class="row">
+            <div class="col-sm-4">Point Of Views</div>
+            <div class="col-sm-8">{{hmw}}             
+            </div>
+        </div><br> -->
+        <div class="row">
+         <div class="col-sm-4">Idea Group</div>
+		<div class="col-sm-8"><select class="form-control" >
+					                <option value=""></option>
+					                <option value="">Digital Solution</option>
+					                <option value="">Non Digital Solution</option>
+					                </select></div>
+					        </div><br>			            
+        <div class="row">
+            <div class="col-sm-4">Prototype Description</div>
+            <div class="col-sm-8">
+                <input class="form-control" type="text">
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Upload Media</div>
+             <div class="col-sm-8">
+                <form role="form">
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio">Image
+                    </label>
+                    <!-- <label class="radio-inline">
+                      <input type="radio" name="optradio">Audio
+                    </label> -->
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio">Video
+                    </label>
+                </form>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-lg-8">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                        Browse&hellip; <input type="file" name="file2" size="50">
+                    </span> 
+                    </span>
+                    <input type="text" class="form-control" readonly placeholder="audio/video/image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="!(showCapturePrototype=false)">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="goToIdea()">Submit</button>
+    </div><br>
+</div>
+<div class="panel" ng-show="show" style="border:1px solid black">
+    <div class="panel-heading head" style="text-align:center">Edit Prototype</div>
+    <div class="panel-body">
+        <!-- <div class="row">
+            <div class="col-sm-4">Point Of Views</div>
+            <div class="col-sm-8">{{hmw}}             
+            </div>
+        </div><br> -->
+        <div class="row">
+            <div class="col-sm-4">Idea Groups</div>
+            <div class="col-sm-8">{{idea}}
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Prototype Description</div>
+            <div class="col-sm-8">
+                <input class="form-control" type="text">
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Upload Media</div>
+             <div class="col-sm-8">
+                <form role="form">
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio">Image
+                    </label>
+                    <!-- <label class="radio-inline">
+                      <input type="radio" name="optradio">Audio
+                    </label> -->
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio">Video
+                    </label>
+                </form>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-lg-8">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                        Browse&hellip; <input type="file" name="file2" size="50">
+                    </span> 
+                    </span>
+                    <input type="text" class="form-control" readonly placeholder="audio/video/image">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="!(show=false)">Cancle</button>
+        <button type="button" class="btn btn-primary" ng-click="goToIdea()">Submit</button>
+    </div><br>
+</div>
+<div class="panel">
+    <div class="panel-heading head" style="text-align:center">Prototypes</div>
+</div>
+<div class="panel panel-default">
+                    <div ng-init="getActivePrototypes()">
+                        <table class="panel-body table table-condensed">
+                            <thead class="panel-heading">
+                              <tr style="text-align:center">
+                                <!-- <th>Point Of Views</th> -->
+                                <th>Idea Group</th>
+                                <th>Prototype Description</th>
+                                <th style="text-align:center">Media</th>
+                                <th>Created By</th>
+                                <th>Updated Date</th>
+                                <th style="text-align:center">Actions <button type="button" ng-hide="showPropotypesFlag" class="btn btn-link btn-xs pull-right" ng-click="getPrototypes()">Show All</button>
+                                <button type="button" class="btn btn-link btn-xs pull-right" ng-show="showPropotypesFlag" ng-click="getActivePrototypes()">Show Active</button></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr ng-repeat = "prototyping in prototypings">
+                               <!--  <td>{{prototyping.questionDescription}}</td> -->
+                                <td>{{prototyping.ideaDescription}}</td>
+                                <td>{{prototyping.prototypeDescription}}</td>
+                                <td style="text-align:center"> &#10003;</td>
+                                <td>Donald Trump</td>
+                                <td>{{prototyping.createdDate}}</td>
+                                <td style="text-align:center">
+                                	<button type="button" style= "margin-right:10px" class="btn btn-primary btn-xs" ng-hide="flag[prototyping.prototypeId]" ng-click="showMedia(prototyping.prototypeId)">Show</button>
+                                	<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs" ng-show="flag[prototyping.prototypeId]" ng-click="showMedia(prototyping.prototypeId)">Hide</button>
+                                	<button style= "margin-right:10px" type="button" ng-hide="flag1[prototyping.prototypeId]" class="btn btn-primary btn-xs" ng-click="showPrototype(prototyping.questionDescription, prototyping.ideaDescription);">Edit</button>
+                                	<button type="button" class="btn btn-primary btn-xs">Deactivate</button>
+                                </td>
+                              </tr>                             
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+ <div ng-show="show1" class="row">
+	<div class="col-lg-4 btn-group-vertical">
+		<button type="button" class="btn btn-link"
+			ng-click="showImage('Vehical Self Care App 1.png')">App Launch</button>
+		<button type="button" class="btn btn-link"
+			ng-click="showImage('Vehical Self Care App 2.png')">Dashboard 1</button>
+		<button type="button" class="btn btn-link"
+			ng-click="showImage('Vehical Self Care App 3.png')">Dashboard 2</button>
+		<button type="button" class="btn btn-link"
+			ng-click="showImage('Vehical Self Care App 4.png')">Fuel Economy</button>
+		<button type="button" class="btn btn-link"
+			ng-click="showImage('Vehical Self Care App 5.jpg')">Diagnostics 1</button>
+		<button type="button" class="btn btn-link"
+			ng-click="showImage('Vehical Self Care App 6.jpg')">Diagnostics 2</button>
+	</div>
+	<div class="col-lg-8">
+	<div ng-show="show2">
+			<img src="media/{{picurl}}" class="img-thumbnail" alt="Cinque Terre"
+				width="304" height="236">
+		</div>
+	</div>
+</div>
+<div ng-show="show3" class="row">
+	<div class="col-lg-4 btn-group-vertical">
+		<button type="button" class="btn btn-link"
+			ng-click="showImage1('call_support.jpg')">Call for help</button>
+		<button type="button" class="btn btn-link"
+			ng-click="showImage1('car_repair.jpg')">Vehicle repair</button>
+	</div>
+	<div class="col-lg-8">
+	<div ng-show="show4">
+			<img src="media/{{picurl1}}" class="img-thumbnail" alt="Cinque Terre"
+				width="304" height="236">
+		</div>
+	</div>
+</div>
+<br>
+<div style="text-align: center">    
+    <button type="button" class="btn btn-primary" ng-click="goToTest()">Go To Test</button>
+</div><br>
+
+
+
+

@@ -1,0 +1,576 @@
+<!-- <div class="panel">
+    <div class="panel-heading" style="text-align:center;background-color:#e51837;color:white">View Media</div>
+    <div class="panel-heading head" style="text-align:center">Media</div>
+</div> -->
+<div class="row">
+    <div class="col-md-2 col-xs-4 col-sm-4" style="font-weight: bold;">
+        Project Name :
+    </div>
+    <div class="col-md-3 col-xs-8 col-sm-8" style="margin-left:-5%">
+        {{project.projectName}}
+    </div>
+    <div class="col-md-2 col-xs-4 col-sm-4" style="margin-right:0px"><strong>Stage :</strong>
+    </div>
+    <div class="col-md-1 col-xs-4 col-sm-4 pull-left" style="margin-left:-5%">{{project.projectStage.projectStageDescription}}
+    </div>
+    <div class="col-md-2 col-xs-12 col-sm-12 pull-right" ng-init="downloadTemplate();">
+    <a  role="button" class="btn col-xs-12 col-sm-12 btn-primary pull-right" style="margin:5px;padding:5px" href="{{templateurl}}">Download Persona Template </a>
+    </div>
+    <!-- <div class="col-sm-2 pull-right">
+    <button type="button" class="btn btn-primary pull-right" ng-click="!(show=true)">Create Input</button></div> -->
+</div><br>
+
+<div class="panel">  
+    <div class="panel-heading head" style="text-align:center"><strong>Inputs</strong>
+
+    <button type="button" class="btn btn-primary pull-right" ng-click="createMedia()" style="margin:-5px" permission="[2,3]">Create Input</button>
+	<div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="panel" ng-show="show" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center;">Create</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Project Name</div>
+            <div class="col-sm-8">{{project.projectName}}</div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Interviewee Name<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="intervieweeName">
+                <span ng-show="createInputError0">Required</span>
+            </div>
+        </div><br>        
+        <div class="row">
+            <div class="col-sm-4">Technique<font color="red">*</font></div>
+            <div class="col-sm-8">
+            	<select class="form-control" ng-model="techniqueUsed" ng-options="techniq.techniqName as techniq.techniqName for techniq in techniques">
+                	<option value=""></option>
+                </select>
+           		<span ng-show="createInputError1">Required</span>     
+           </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Job Type<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="jobType">
+                <span ng-show="createInputError2">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Notes<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <textarea type="text" class="form-control" ng-model="inputNotes" rows="3"></textarea>
+                <span ng-show="createInputError3">Required</span>
+            </div>
+        </div><br>
+        <div class="row" ng-if='uploadedPersonaDocuments == null || uploadedPersonaDocuments == ""'>
+            <div class="col-sm-4">Upload Persona Document<font color="red">*</font></div>
+            <div class="col-lg-7">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                        Browse&hellip; <input type="file" fileread="vm.uploadme" size="50">
+                    </span> 
+                    </span>
+                    <input type="text" class="form-control" readonly placeholder="Document">
+                </div>
+            </div>
+            <div class="col-lg-1">
+            	<button type="button" class="btn btn-primary pull-right" ng-click="uploadPersona(vm.uploadme,0)">Upload</button>
+            </div>
+            <!-- <span ng-show="uploadPersonaError" style="text-align: center;">Please select a file</span> -->
+        </div><br>
+        <div ng-repeat="uploadedPersonaDocument in uploadedPersonaDocuments">
+	        <div class="row">
+	        	 <div class="col-sm-4">Persona Document<font color="red">*</font></div>
+            	<div class="col-sm-8" id="delete-color"> {{uploadedPersonaDocument.documentName}} &nbsp;&nbsp;&nbsp;<a ng-click="removePersonaDocument(uploadedPersonaDocument)" style="color:red;font-weight: bold;">&#x2716;</a> </div>
+	        </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Upload Media</div>
+            <div class="col-sm-8">
+                <form role="form">
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" value="1" ng-model="mediaType">Image
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" value="2" ng-model="mediaType">Audio
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" value="3" ng-model="mediaType">Video
+                    </label>
+                </form>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-lg-7">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                        Browse&hellip; <input type="file" fileread="vm.uploadme" size="50">
+                    </span> 
+                    </span>
+                    <input type="text" class="form-control" readonly placeholder="audio/video/image">
+                </div>
+            </div>
+            <div class="col-lg-1">
+            	<button type="button" class="btn btn-primary pull-right" ng-click="uploadMedia(vm.uploadme,mediaType,0)">Upload</button>
+            </div>
+        </div><br>
+        <div ng-repeat="uploadedDocument in uploadedDocuments">
+	        <div class="row">
+	        	 <div class="col-sm-4">Media Documents</div>
+            	<div class="col-sm-8" id="delete-color"> {{uploadedDocument.mediaName}} &nbsp;&nbsp;&nbsp;<a ng-click="removeDocument(uploadedDocument)" style="color:red;font-weight: bold;">&#x2716;</a> </div>
+	        </div>
+        </div><br>
+    </div>
+    <div style="text-align: center">
+    <button type="button" class="btn btn-primary" ng-click="cancelMedia()">Cancel</button>
+    <button type="button" class="btn btn-primary"  ng-click="addMedia(uploadedPersonaDocuments)">Submit</button><br>
+</div><br>
+</div>
+<div class="panel" ng-show="showEdit" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center;">Edit Artifacts</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Project Name</div>
+            <div class="col-sm-8">{{project.projectName}}</div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Interviewee Name<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="editMedia.intervieweeName">
+                <span ng-show="updateMediaError0">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Interview Technique<font color="red">*</font></div>
+            <div class="col-sm-8">
+            	<select class="form-control" ng-model="editMedia.techiniqueUsed" ng-options="techniq.techniqName as techniq.techniqName for techniq in techniques">
+                </select>
+                <span ng-show="updateMediaError1">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Job Type<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="editMedia.jobType">
+                <span ng-show="updateMediaError2">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Input Notes<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <textarea type="text" class="form-control" ng-model="editMedia.inputNotes" rows="3"></textarea>
+                <span ng-show="updateMediaError3">Required</span>
+            </div>
+        </div><br>
+        <div class="row" ng-if='uploadedPersonaDocuments == null || uploadedPersonaDocuments == ""'>
+            <div class="col-sm-4">Upload Persona Document<font color="red">*</font></div>
+            <div class="col-lg-7">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                        Browse&hellip; <input type="file" fileread="vm.uploadme" size="50">
+                    </span> 
+                    </span>
+                    <input type="text" class="form-control" readonly placeholder="Document">
+                </div>
+            </div>
+            <div class="col-lg-1">
+            	<button type="button" class="btn btn-primary pull-right" ng-click="uploadPersona(vm.uploadme,editMedia.mediaId)">Upload</button>
+            </div>
+        </div><br>
+        <div ng-repeat="uploadedPersonaDocument in uploadedPersonaDocuments">
+	        <div class="row">
+	        	 <div class="col-sm-4">Persona Document<font color="red">*</font></div>
+            	<div class="col-sm-8" id="delete-color"> <a ng-click="showDocument(uploadedPersonaDocument)" style="color:blue;">{{uploadedPersonaDocument.documentName}}</a>&nbsp;&nbsp;&nbsp;<a ng-click="removePersonaDocument(uploadedPersonaDocument)" style="color:red;font-weight: bold;">&#x2716;</a> </div>
+	        </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Upload Media</div>
+            <div class="col-sm-8">
+                <form role="form">
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" value="1" ng-model="mediaType">Image
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" value="2" ng-model="mediaType">Audio
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" value="3" ng-model="mediaType">Video
+                    </label>
+                </form>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-lg-7">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-default btn-file">
+                        Browse&hellip; <input type="file" fileread="vm.uploadme" size="50">
+                    </span> 
+                    </span>
+                    <input type="text" class="form-control" readonly placeholder="audio/video/image">
+                </div>
+            </div>
+            <div class="col-lg-1">
+            	<button type="button" class="btn btn-primary pull-right" ng-click="uploadMedia(vm.uploadme,mediaType,editMedia.mediaId)">Upload</button>
+            </div>
+        </div><br>
+        <div ng-repeat="uploadedDocument in uploadedDocuments">
+	        <div class="row">
+	        	 <div class="col-sm-4">Media Documents</div>
+            	<div class="col-sm-8" id="delete-color"> {{uploadedDocument.mediaName}} &nbsp;&nbsp;&nbsp;<a ng-click="removeDocument(uploadedDocument)" style="color:red;font-weight: bold;">&#x2716;</a> </div>
+	        </div>
+        </div><br>
+    </div>
+    <div style="text-align: center">
+    <button type="button" class="btn btn-primary" ng-click="cancelUpdateMedia()">Cancel</button>
+    <button type="button" class="btn btn-primary" ng-click="updateMedia(editMedia)">Submit</button><br>
+</div><br>
+</div>
+
+
+<div class="panel" ng-show="showMediaView" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center;">View Artifacts</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Project Name</div>
+            <div class="col-sm-8">{{project.projectName}}</div>
+        </div><br>
+ 		<div class="row">
+            <div class="col-sm-4">Interviewee Name</div>
+            <div class="col-sm-8">
+            {{media.intervieweeName}}
+            </div>
+        </div><br>        
+        <div class="row">
+            <div class="col-sm-4">Interview Technique</div>
+            <div class="col-sm-8">
+            {{media.techiniqueUsed}}
+<!--             	<select class="form-control" ng-readonly="true"  ng-model="media.techiniqueUsed" ng-options="techniq.techniqName as techniq.techniqName for techniq in techniques"> -->
+                </select>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Job Type</div>
+            <div class="col-sm-8">
+            {{media.jobType}}
+<!--                 <input type="text" class="form-control" ng-readonly="true"  ng-model="media.jobType"> -->
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Input Notes</div>
+            <div class="col-sm-8">
+            {{media.inputNotes}}
+<!--                 <input type="text" class="form-control" ng-readonly="true"  ng-model="media.inputNotes"> -->
+            </div>
+        </div><br>
+        <div ng-repeat="uploadedPersonaDocument in uploadedPersonaDocuments">
+	        <div class="row" >
+	        	 <div class="col-sm-4">Persona Document</div>
+            	<div class="col-sm-8" id="delete-color"><a ng-click="showDocument(uploadedPersonaDocument)" style="color:blue;"> {{uploadedPersonaDocument.documentName}} </a>&nbsp;&nbsp;&nbsp;</div>
+	        </div>
+        </div><br>        
+     
+        <div ng-repeat="uploadedDocument in uploadedDocuments">
+	        <div class="row">
+	        	 <div class="col-sm-4">Media Documents</div>
+            	<div class="col-sm-8" id="delete-color"> {{uploadedDocument.mediaName}} &nbsp;&nbsp;&nbsp;</div>
+	        </div>
+        </div><br>        
+    </div>
+    <div style="text-align: center">
+    <button type="button" class="btn btn-primary" ng-click="!(showMediaView=false)">Cancel</button>
+<!--     <button type="button" class="btn btn-primary" ng-click="updateMedia(editMedia)">Upload/Submit</button><br> -->
+</div><br>
+</div>
+
+
+<div class="panel panel-default">
+	<div ng-init="getActiveMedias()" id="staticHight" class="table-responsive">
+        <!--  <div> -->
+             <table class="panel-body table table-hover"  style="height:auto;>
+                 <thead class="panel-heading">
+                   <tr>
+                     <!-- <th>Select</th> -->
+                     <th>Interviewee Name</th>
+                     <th class="ng-class:resize">Technique</th>
+                     <th class="ng-class:resize">Job Type</th>
+                     <!-- <th>Interviewed By</th> -->
+                     <!-- <th>Media Name</th> -->
+                     <th class="ng-class:resize">Notes</th>
+                     <th class="ng-class:resize" style="text-align:center">Persona</th>
+                     <th class="ng-class:resize" style="text-align:center">Media</th>
+                     <th class="ng-class:resize">Updated Date</th>
+                     <th style="text-align:left">
+                     	<button class="btn btn-link btn-xs pull-left hidden-lg" ng-hide="tableSize" ng-click="expand()">Expand</button>
+                        <button class="btn btn-link btn-xs pull-left hidden-lg" ng-show="tableSize" ng-click="collapse()">collapse</button>
+                        <lable>Actions</lable> 
+                    	<button type="button" ng-hide="showFlag" class="btn btn-link btn-xs pull-right" ng-click="getMedia()">Show All</button>
+                     	<button type="button" class="btn btn-link btn-xs pull-right" ng-show="showFlag" ng-click="getActiveMedias()">Show Active</button>
+                     </th>
+                   </tr>
+                 </thead>
+                 <tbody>
+                   <tr ng-repeat="media in medias">
+                     <!-- <td><input id="{{item}}" type="checkbox" value="{{item}}" ng-checked="selection.indexOf(item) > -1" ng-click="toggleSelection(item)" /></td> -->
+                     <!-- <td>{{media.techiniqueUsed}}</td> -->
+                     <td><div title="{{media.intervieweeName}}" ng-bind="::media.intervieweeName"></div></td>
+                     <td class="ng-class:resize"><div title="{{media.techiniqueUsed}}" ng-bind="::media.techiniqueUsed"></div></td>
+                     <td class="ng-class:resize"><div title="{{media.jobType}}" ng-bind="::media.jobType"></div></td>
+                     <td class="ng-class:resize"><div title="{{media.inputNotes}}" ng-bind="::media.inputNotesShort"></div></td>
+                     <!-- <td>{{media.jobType}}</td> -->                             
+                     <!-- <td title={{media.inputNotes}}>{{media.inputNotes}}</span></td> -->                
+                     <td class="ng-class:resize" style="text-align:center" ><div ng-if="media.personaFlag">&#10003;</div></td>               
+                     <td class="ng-class:resize" style="text-align:center" ><div ng-if="media.mediaType != null">&#10003;</div></td>
+                    
+                     <td class="ng-class:resize">{{media.updatedDate}}</td>
+                     <td style="text-align:left">
+                     	<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs customView" ng-hide="flag[media.mediaId]" ng-click="showMedia(media.mediaId)" ng-disabled="!(media.mediaType != null)">Show</button>
+                     	<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs customView" ng-show="flag[media.mediaId]" ng-click="hideMedia(media.mediaId)" ng-disabled="!(media.mediaType != null)">Hide</button>
+                     	<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs customView" ng-click="edit(media)" ng-if="media.deleteFlag==0" permission="[2,3]">Edit</button>
+                     	<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs customView" ng-click="viewMedia(media)" ng-if="media.deleteFlag==1" permission="[2,3,4]">View</button>
+                     	<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs customView" ng-click="viewMedia(media)" permission="[4,5,6,7]">View</button>
+                     	<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs customActivation" ng-click="deactivateMedia(media.mediaId)" ng-if="media.deleteFlag==0" permission="[2,3]">Deactivate</button>
+                     	<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs customActivation" ng-click="activateMedia(media.mediaId)" ng-if="media.deleteFlag==1" permission="[2,3]">Activate</button>
+                     	<button type="button" class="btn btn-primary btn-xs"  ng-click="add(media.jobType, media.inputNotes,media.mediaId)" permission="[2,3,4]"><span class="glyphicon glyphicon-plus" ></span>&nbsp;Observation</button>
+                     </td>
+                     </tr>                           
+                 </tbody>
+             </table>
+        </div>
+  </div>
+
+<div ng-show="show1" >
+ 	<div class="row" >
+	 	<div class="col-lg-4 btn-group-vertical">
+			<div ng-repeat="uploadedDocument in uploadedDocuments">
+				<button type="button" class="btn btn-link" ng-if="uploadedDocument.mediaType.mediaTypeID == 1"	ng-click="showImage(uploadedDocument)">{{uploadedDocument.mediaName}}</button>
+				<button type="button" class="btn btn-link" ng-if="uploadedDocument.mediaType.mediaTypeID == 3"	ng-click="launchMedia($event, uploadedDocument)">{{uploadedDocument.mediaName}}</button>
+			</div>
+			<div ng-show="loading" style="text-align:right">
+				<img src="img/Loading.gif" />
+			</div>
+		</div>
+		<div class="col-lg-8">
+			
+			<div ng-show="show2">
+				<img src="{{picurl}}" class="img-thumbnail" alt="Cinque Terre"
+					width="304" height="236">
+			</div>
+			<div ng-show="showvedio" style="text-align:center">
+				<video class="pull-right" controls autoplay width="640" height="440" id="video" ng-src="{{picurl}}"></video>
+			</div>
+		</div>
+	</div>
+</div>
+<br>
+ 
+<div class="panel"  ng-show="showAddObservation" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center">Create Observations</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Job Type<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="jobType">
+                <span ng-show="createObservationError1">Required</span> 
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Input Notes<font color="red">*</font></div>
+            <div class="col-sm-8">
+               <input type="text" class="form-control" ng-model="mediaInputs">
+               <span ng-show="createObservationError2">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Observation Category<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <select class="form-control" ng-model="observationCategoryID" ng-options="category.observationCategoryID as category.categoryDescription for category in categories">
+                <option value=""></option>
+                </select>
+                <span ng-show="createObservationError3">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Observation Notes<font color="red">*</font></div>
+            <div class="col-lg-8">
+                <textarea type="text" class="form-control" ng-model="observationNotes" rows="3"></textarea>
+                <span ng-show="createObservationError4">Required</span>
+            </div>
+        </div>
+    </div>   
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="cancelAddObservation()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="addObservation(mediaId)">Submit</button><br>
+    </div><br>
+</div>
+<div class="panel"  ng-show="showEditObsrve" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center">Edit Observations</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Job Type</div>
+            <div class="col-sm-8">
+            {{editObservationDtls.jobType}}
+<!--                 <input type="text" class="form-control" ng-model="editObservationDtls.intervieweeName"> -->
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Input Notes</div>
+            <div class="col-sm-8">
+            {{editObservationDtls.mediaInputs}}
+<!--                <input type="text" class="form-control" ng-model="editObservationDtls.mediaName"> -->
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Observation Category<font color="red">*</font></div>
+            <div class="col-sm-8" ng-init="getObsCategory()">
+                <select class="form-control" ng-model="editObservationDtls.observationCategoryID" ng-options="category.observationCategoryID as category.categoryDescription for category in categories">
+                <!-- <option value=observationCategory></option> -->
+                </select>
+                <span ng-show="updateObservationError1">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Observation Notes<font color="red">*</font></div>
+            <div class="col-lg-8">
+                <textarea type="text" class="form-control" ng-model="editObservationDtls.observationNotes" rows="3"></textarea>
+                <span ng-show="updateObservationError2">Required</span>
+            </div>
+        </div>
+    </div>   
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="cancelUpdate()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="update(editObservationDtls)">Submit</button><br>
+    </div><br>
+</div>
+
+
+<div class="panel"  ng-show="viewObsrve" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center">View Observations</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Job Type</div>
+            <div class="col-sm-8">
+             {{viewObservationDtls.jobType}} 
+<!--             <input type="text" class="form-control" ng-model="viewObservationDtls.intervieweeName">  -->
+              
+              
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Input Notes</div>
+            <div class="col-sm-8">
+             {{viewObservationDtls.mediaInputs}} 
+<!--                <input type="text" class="form-control" ng-model="viewObservationDtls.mediaName">  -->
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Observation Category</div>
+            <div class="col-sm-8" ng-init="getObsCategory()">
+            {{viewObservationDtls.categoryDescription}}
+<!--                  <select class="form-control" ng-model="viewObservationDtls.observationCategoryID" ng-readonly="true" ng-options="category.observationCategoryID as category.categoryDescription for category in categories"> -->
+                <!-- <option value=observationCategory></option> -->
+                </select>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Observation Notes</div>
+            <div class="col-lg-8">
+            {{viewObservationDtls.observationNotes}}
+<!--                 <input type="text" class="form-control" ng-model="viewObservationDtls.observationNotes"> -->
+            </div>
+        </div>
+    </div>   
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="!(viewObsrve=false)">Cancel</button>
+<!--         <button type="button" class="btn btn-primary" ng-click="update(viewObservationDtls)">Submit</button><br> -->
+    </div><br>
+</div>
+
+
+
+<div class="panel">
+
+    <div class="panel-heading head" style="text-align:center"  ng-init="getObservations();">Observations</div>
+</div>
+<div class="panel panel-default" id="staticHight">
+                    <div class="table-responsive">
+                        <table class="panel-body table table-hover">
+                            <thead class="panel-heading">
+                              <tr>
+                               
+                                <!-- <th>Interview Candidate</th>
+                                <th>Media Name</th>
+                                <th>Media Type</th> -->
+                                <th>Observation Notes</th>
+                                <th>Category</th>
+                                <th>Updated By</th>
+                                <th>Updated Date</th>
+                                <th style="text-align:left">Actions <button type="button" class="btn btn-link btn-xs pull-right" ng-click="getAllObservations()" ng-hide="showFlagObserve">Show All</button>
+                             <button type="button" class="btn btn-link btn-xs pull-right" ng-click="getObservations();" ng-show="showFlagObserve">Show Active</button></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr ng-repeat = "observation in observations">
+                                
+                               <!--  <td>{{observation.intervieweeName}}</td>
+                                <td>{{observation.mediaName}}</td>
+                                <td>{{observation.mediaType}}</td> -->
+                                <td><div title="{{observation.observationNotes}}" ng-bind="::observation.observationNotesShort"></div></td>
+                                <!-- <td title={{observation.observationNotes}}>{{observation.observationNotes}}</td> -->
+                                <td>{{observation.categoryDescription}}</td>
+                                <td>{{observation.createdBy}}</td>
+                                <td>{{observation.createdDate}}</td>
+                                <td style="text-align:left">
+                                	<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs" ng-click="editObservation(observation)" ng-if="observation.deleteFlag==0" permission="[2,3,4]">Edit</button>
+                                	<button type="button" class="btn btn-primary btn-xs" ng-click="deactivate(observation.observationID)" ng-if="observation.deleteFlag==0" permission="[2,3,4]">Deactivate</button>
+                                	<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs"  ng-click="view(observation)" ng-if="observation.deleteFlag==1" permission="[2,3,4]">View</button>
+                                	<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs"  ng-click="view(observation)"  permission="[5,6,7]">View</button>
+                                	<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs"  ng-click="activate(observation.observationID)" ng-if="observation.deleteFlag==1" permission="[2,3,4]">Activate</button></td>
+                              </tr>                             
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+<div style="text-align: center">
+    <button type="button" class="btn btn-primary" ng-click="goToDefine()" permission="[2,3,4]">Go To Define</button>
+</div><br>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+<script>
+$(document).on('change', '.btn-file :file', function() {
+  var input = $(this),
+      numFiles = input.get(0).files ? input.get(0).files.length : 1,
+      label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+  input.trigger('fileselect', [numFiles, label]);
+});
+
+$(document).ready( function() {
+    $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+        
+    });
+});
+</script>
+
+
+

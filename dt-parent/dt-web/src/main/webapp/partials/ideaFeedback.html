@@ -1,0 +1,81 @@
+<div class="panel panel-danger">
+    <div class="panel-heading" style="text-align:center">List Feedback</div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3" style="font-weight: bold">
+        Preoject Name :
+    </div>
+    <div class="col-sm-9" style="font-weight: bold">
+        Improve the Car Maintenance Experince
+    </div>
+</div><br>
+<div class="panel panel-default">
+                    <div>
+                        <table class="panel-body table table-condensed">
+                            <thead class="panel-heading">
+                              <tr>
+                                <th>S No</th>
+                                <th>HMW Question</th>
+                                <th>Idea</th>
+                                <th>Idea Feedback</th>
+                                <th>Created By</th>
+                                <th>Created Date</th>
+                                <th>select for prototyping</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>To be feed</td>
+                                <td>To be  feed</td>
+                                <td>To be  feed</td>
+                                <td>To be  feed</td>
+                                <td>To be  feed</td>
+                                <td>To be  feed</td>
+                              </tr>                             
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+<div style="text-align: center">
+    <button type="button" class="btn btn-info" ng-click="!(show=true)">Capture Feedback</button>
+    <button type="button" class="btn btn-info" ui-sref = "home.projects.details.prototype">Prototyping</button>
+</div></br>
+
+<div class="panel panel-danger"  ng-show="show"> 
+    <div class="panel-heading" style="text-align:center">HMW Questions</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">HMW Questions</div>
+            <div class="col-sm-8">
+                <select class="form-control" ng-model="policyHolder.title" ng-options="i.id as i.name for i in items">
+                <option value=""></option>
+                </select>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Idea</div>
+            <div class="col-sm-8">
+                <select class="form-control" ng-model="policyHolder.title" ng-options="i.id as i.name for i in items">
+                <option value=""></option>
+                </select>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Idea Category</div>
+            <div class="col-sm-8">
+                <select class="form-control" ng-model="policyHolder.title" ng-options="i.id as i.name for i in items">
+                <option value=""></option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center">
+        <button type="button" class="btn btn-info" ng-click="!(show=false)">Cancle</button>
+        <button type="button" class="btn btn-info" ng-click="goToIdea()">Submit</button>
+    </div>
+</div>
+
+    

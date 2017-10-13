@@ -1,0 +1,48 @@
+<div class="row">
+<div class="col-sm-2" style="font-weight: bold; margin-right: -100px;">
+        Project Name :
+    </div>
+    <div class="col-sm-3" style="margin-left:-10px">
+        {{project.projectName}}
+    </div>
+    <div class="col-sm-2" style="margin-right: -100px;"><strong>Stage :</strong>
+    </div>
+    <div class="col-sm-1 pull-left" style="margin-left:-50px">{{project.projectStage.projectStageDescription}}
+    </div>
+</div>
+<br>
+ <div class="panel">
+ <div class="panel-heading head" style="text-align:center"><strong>User Role Management</strong>
+ 	<!-- <button type="button" class="btn btn-primary pull-right">Create Input</button> -->
+ 	<input type="text" style="width:150px;margin: -5px;" class="form-control pull-right" ng-model="searchUser" placeholder="Search User">
+	<div class="clearfix"></div>
+ </div>
+ </div>
+ <div class="row">
+      <div class="col-xs-12 table-responsive" ng-init="userRoles()" class="panel panel-default">
+        <table class="panel-body table table-hover">
+          <thead class="panel-heading">
+            <tr>
+			  <th>User Id</th>
+              <th>User Name</th>
+              <th style="text-align:center">Facilitator</th>
+              <th style="text-align:center">Empathizer</th>
+              <th style="text-align:center">Observer</th>
+              <th style="text-align:center">Ideator</th>
+              <th style="text-align:center">prototyper</th>
+              <th style="text-align:center">Tester</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="row in rows | filter:searchUser">
+              <td>{{row.userId}}</td>
+              <td>{{row.userName}}</td>
+			  <td style="text-align:center" ng-repeat="selected in roles"><input type="checkbox" ng-checked="assignedRoles(selected,row.permissionsId)" ng-click="toggleAssign(selected,row.permissionsId)"/></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+     <div style="text-align: center">
+	    <button type="button" class="btn btn-primary"  ng-click="submitAssignRoles(rows)">Submit</button><br>
+	 </div><br>

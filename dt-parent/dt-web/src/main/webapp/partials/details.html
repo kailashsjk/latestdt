@@ -1,0 +1,55 @@
+
+<!-- <div>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+                <a class="navbar-brand" ui-sref="home.projects.details">Project</a>
+            </div>
+        <ul class="nav navbar-nav">
+            <li ng-class="{ active: isActive('home.projects.details.media'), disabled: isDisable(1) }"><a ng-class="{disabled: isDisable(1)}" ui-sref = "home.projects.details.media">Emphathize</a></li>
+            <li ng-class="{ active: isActive('home.projects.details.empathy'), disabled: isDisable(2) }"><a ng-class="{disabled: isDisable(2)}" ui-sref = "home.projects.details.empathy">Define</a></li>
+            <li ng-class="{ active: isActive('home.projects.details.ideas'), disabled: isDisable(3) }"><a ng-class="{disabled: isDisable(3)}" ui-sref = "home.projects.details.ideas">Ideate</a></li>
+            <li ng-class="{ active: isActive('home.projects.details.prototype'), disabled: isDisable(4) }"><a ng-class="{disabled: isDisable(4)}" ui-sref = "home.projects.details.prototype">Prototype</a></li>
+            <li ng-class="{ active: isActive('home.projects.details.prototype_Feedback'), disabled: isDisable(5) }"><a ng-class="{disabled: isDisable(5)}" ui-sref = "home.projects.details.prototype_Feedback">Test</a></li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right" ng-init="initFacilitator()">
+			<li ng-show="isFacilitator"><a ui-sref="home.projects.details.roles">User Role Management</a></li>
+		</ul>
+      </div>
+    </nav>
+
+</div>
+</div> -->
+<div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation" data-spy="affix-top" data-offset-top="20">
+    <div class="container-fluid">
+        <div class="navbar-header"><a class="navbar-brand" ui-sref="home.projects.details" style="color:#fff">Project</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse navbar-menubuilder">
+            <!-- <ul class="nav navbar-nav navbar-left">
+            <li ng-class="{ active: isActive('home.projects.details.media'), disabled: isDisable(1) }"><a ng-class="{disabled: isDisable(1)}" ui-sref = "home.projects.details.media">Emphathize</a></li>
+            <li ng-class="{ active: isActive('home.projects.details.empathy'), disabled: isDisable(2) }"><a ng-class="{disabled: isDisable(2)}" ui-sref = "home.projects.details.empathy">Define</a></li>
+            <li ng-class="{ active: isActive('home.projects.details.ideas'), disabled: isDisable(3) }"><a ng-class="{disabled: isDisable(3)}" ui-sref = "home.projects.details.ideas">Ideate</a></li>
+            <li ng-class="{ active: isActive('home.projects.details.prototype'), disabled: isDisable(4) }"><a ng-class="{disabled: isDisable(4)}" ui-sref = "home.projects.details.prototype">Prototype</a></li>
+            <li ng-class="{ active: isActive('home.projects.details.prototype_Feedback'), disabled: isDisable(5) }"><a ng-class="{disabled: isDisable(5)}" ui-sref = "home.projects.details.prototype_Feedback">Test</a></li>
+            </ul> -->
+            <ul class="nav navbar-nav navbar-left">
+            <li ng-class="{ active: isActive('home.projects.details.media')}"><a ng-class="{disabled: isDisable(1)}" ui-sref = "home.projects.details.media">Empathize</a></li>
+            <li ng-class="{ active: isActive('home.projects.details.empathy')}"><a ng-class="{disabled: isDisable(2)}" ui-sref = "home.projects.details.empathy">Define</a></li>
+            <li ng-class="{ active: isActive('home.projects.details.ideas')}"><a ng-class="{disabled: isDisable(3)}" ui-sref = "home.projects.details.ideas">Ideate</a></li>
+            <li ng-class="{ active: isActive('home.projects.details.prototype')}"><a ng-class="{disabled: isDisable(4)}" ui-sref = "home.projects.details.prototype">Prototype</a></li>
+            <li ng-class="{ active: isActive('home.projects.details.prototype_Feedback')}"><a ng-class="{disabled: isDisable(5)}" ui-sref = "home.projects.details.prototype_Feedback">Test</a></li>
+            <li ng-class="{ active: isActive('home.projects.details.summary')}"><a ng-class="{disabled: isDisable(6)}" ui-sref = "home.projects.details.summary">Summary</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-init="initFacilitator()">
+			<li ng-show="isFacilitator"><a ui-sref="home.projects.details.roles">User Role Management</a></li>
+        </div>
+    </div>
+   </div>
+

@@ -1,0 +1,402 @@
+<div class="row">
+<div class="col-md-2 col-xs-4 col-sm-4" style="font-weight: bold;">
+        Project Name :
+    </div>
+    <div class="col-md-3 col-xs-8 col-sm-8" style="margin-left:-5%">
+        {{project.projectName}}
+    </div>
+    <div class="col-md-2 col-xs-4 col-sm-4"><strong>Stage :</strong>
+    </div>
+    <div class="col-md-1 col-xs-4 col-sm-4 pull-left" style="margin-left:-5%">{{project.projectStage.projectStageDescription}}
+    </div>
+</div>
+<br>
+<div class="panel">
+	<div class="panel-heading head" style="text-align: center">
+		Empathy Map
+		<button type="button" class="btn btn-link btn-xs pull-right"
+			ng-click="toggleModal()">Help</button>
+		<helpmodal visible="showModal">
+		<div style="text-align: left">
+			<p>Create a four quadrant layout on paper or a white board.
+				Populate the map by taking note of the following four traits of your
+				user as you review your notes, audio, and video from your field work:</p>
+			<ul>
+				<li>SAY: What are some quotes and defining words your user
+					said?</li>
+				<li>DO: What actions and behaviors did you notice?</li>
+				<li>THINK: What might your user be thinking? What does this
+					tell you about his or her beliefs?</li>
+				<li>FEEL: What emotions might your subject be feeling?</li>
+			</ul>
+		</div>
+		</helpmodal>
+	</div>
+	<div class="panel-body" id="demo" class="panel-collapse collapse" ng-init="getEmpathy()">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="text-align: center">Do</div>
+					<div class="panel-body" id="staticHightDefine">
+						<ul ng-repeat="doEmpathy in doEmpathies">
+							<li>{{doEmpathy.observationNotes}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="text-align: center">Say</div>
+					<div class="panel-body" id="staticHightDefine">
+					<ul ng-repeat="sayEmpathy in sayEmpathies">
+							<li>{{sayEmpathy.observationNotes}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="text-align: center">Think</div>
+					<div class="panel-body" id="staticHightDefine">
+						<ul ng-repeat="thinkEmpathy in thinkEmpathies">
+							<li>{{thinkEmpathy.observationNotes}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="text-align: center">Feel</div>
+					<div class="panel-body" id="staticHightDefine">
+						<ul ng-repeat="feelEmpathy in feelEmpathies">
+							<li>{{feelEmpathy.observationNotes}}
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="panel">
+	<div class="panel-heading head" style="text-align: center">
+		Needs & Insights
+		<button type="button" class="btn btn-link btn-xs pull-right"
+			ng-click="toggleModal1()">Help</button>
+		<helpmodal visible="showModal1">
+		<div style="text-align: left">
+			<p>IDENTIFY NEEDS: Needs are human emotional or physical necessities. Needs help define your design challenge. Remember: Needs are verbs (activities and desires with which your user could use help), not nouns (solutions). Identify needs directly out of the user traits you noted, or from contradictions between two traits - such as a disconnect between what she says and what she does. Write down needs on the side of your Empathy Map.</p>
+			<p>IDENTIFY INSIGHTS: An Insight is a remarkable realization that you could leverage to better respond to a design challenge. Insights often grow from contradictions between two user attributes (either within a quadrant or from two different quadrants) or from asking yourself "Why?" when you notice strange behavior. Write down potential insights on the side of your Empathy Map. One way to identify the seeds of insights is to capture "tensions", contradictions", and "surprises" as you work.</p>
+		</div>
+		</helpmodal>
+	</div>
+	<br>
+	
+	<!-- CREATE NEEDS -->
+	<div class="panel" ng-show="show" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center;">Create Needs</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Needs Description<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="needsNew">
+                <span ng-show="createNeedError">Required</span>
+            </div>
+        </div><br>
+        <div style="text-align: center">
+            <button type="button" class="btn btn-primary" ng-click="cancelAddNeed()">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="addNewNeeds()">Submit</button><br>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT NEEDS -->
+	<div class="panel" ng-show="show1" style="border: 1px solid black">
+	    <div class="panel-heading head" style="text-align:center;">Edit Needs</div>
+	    <div class="panel-body">
+	        <div class="row">
+	            <div class="col-sm-4">Needs Description<font color="red">*</font></div>
+	            <div class="col-sm-8">
+	                <input type="text" class="form-control" ng-model="need.description">
+	                <scpan ng-show="editNeedError">Required</scpan>
+	            </div>
+	        </div><br>
+	        <div style="text-align: center">
+	            <button type="button" class="btn btn-primary" ng-click="cancelEditNeed()">Cancel</button>
+	            <button type="button" class="btn btn-primary" ng-click="editANeed(need)">Submit</button><br>
+	            
+	        </div>
+	    </div>
+	</div>
+	
+<!-- VIEW DEACTIVATED NEEDS -->
+	<div class="panel" ng-show="showDeactivatedNeedsFlag" style="border: 1px solid black">
+	    <div class="panel-heading head" style="text-align:center;">View Details Need</div>
+	    <div class="panel-body">
+	        <div class="row">
+	            <div class="col-sm-4">Needs Description</div>
+	            <div class="col-sm-8">
+	               {{showDeactivatedNeed}}
+	            </div>
+	        </div><br>
+	        <div style="text-align: center">
+	            <button type="button" class="btn btn-primary" ng-click="!(showDeactivatedNeedsFlag=false)">Cancel</button>
+	        </div>
+	    </div>
+	</div>	
+	
+	<!-- CREATE INSIGHTS -->
+	<div class="panel" ng-show="show2" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center;">Create Insights</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Insights Description<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="insightsNew">
+                <span ng-show="createInsightsError">Required</span>
+            </div>
+        </div><br>
+        <div style="text-align: center">
+            <button type="button" class="btn btn-primary" ng-click="cancelAddInsight()">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="addNewInsights()">Submit</button><br>
+        </div>
+    </div>
+</div>
+
+<!-- EDIT INSIGHTS -->
+	<div class="panel" ng-show="show3" style="border: 1px solid black">
+	    <div class="panel-heading head" style="text-align:center;">Edit Insights</div>
+	    <div class="panel-body">
+	        <div class="row">
+	            <div class="col-sm-4">Insights Description<font color="red">*</font></div>
+	            <div class="col-sm-8">
+	                <input type="text" class="form-control" ng-model="insight.description">
+	                <span ng-show="editInsightError">Required</span>
+	            </div>
+	        </div><br>
+	        <div style="text-align: center">
+	            <button type="button" class="btn btn-primary" ng-click="!(show3=false)">Cancel</button>
+	            <button type="button" class="btn btn-primary" ng-click="editAnInsight(insight)">Submit</button><br>
+	        </div>
+	    </div>
+	</div>
+
+<!-- VIEW DEACTIVATED NEEDS -->
+	<div class="panel" ng-show="showDeactivatedNeedsFlag" style="border: 1px solid black">
+	    <div class="panel-heading head" style="text-align:center;">View Details Need</div>
+	    <div class="panel-body">
+	        <div class="row">
+	            <div class="col-sm-4">Needs Description</div>
+	            <div class="col-sm-8">
+	               {{showDeactivatedNeed}}
+	            </div>
+	        </div><br>
+	        <div style="text-align: center">
+	            <button type="button" class="btn btn-primary" ng-click="!(showDeactivatedNeedsFlag=false)">Cancel</button>
+	        </div>
+	    </div>
+	</div>	
+<!-- VIEW DEACTIVATED INSIGHTS -->
+	<div class="panel" ng-show="showDeactivatedInsightsFlag" style="border: 1px solid black">
+	    <div class="panel-heading head" style="text-align:center;">View Details Insight</div>
+	    <div class="panel-body">
+	        <div class="row">
+	            <div class="col-sm-4">Insights Description</div>
+	            <div class="col-sm-8">
+	               {{showDeactivatedInsight}}
+	            </div>
+	        </div><br>
+	        <div style="text-align: center">
+	            <button type="button" class="btn btn-primary" ng-click="!(showDeactivatedInsightsFlag=false)">Cancel</button>
+	        </div>
+	    </div>
+	</div>		
+	
+
+	<div class="panel-body" id="demo1" class="panel-collapse collapse">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="text-align: center">Needs</div>
+					<div id="staticHight" class="table-responsive">
+						<table class="panel-body table table-hover" ng-init="getActiveNeeds()">
+							<thead>
+								<tr>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th>
+										<button type="button" class="btn btn-primary btn-xs push-right" permission="[2,4]" ng-click="createNeeds()">Create</button>
+										<button type="button" ng-hide="showNeedsFlag" class="btn btn-link btn-xs pull-right" ng-click="getAllNeeds()">Show All</button>
+	                                	<button type="button" class="btn btn-link btn-xs pull-right" ng-show="showNeedsFlag" ng-click="getActiveNeeds()">Show Active</button>
+                                	</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="need in needs">
+									<td></td>
+									<td><div title="{{need.description}}" ng-bind="::need.descriptionShort"></div></td>
+									<td></td>
+									<td style="text-align: left;">
+										<button type="button" class="btn btn-primary btn-xs" ng-if="need.deleteFlag==0" ng-click="editNeeds(need)" permission="[2,4]">Edit</button>
+										<button type="button" class="btn btn-primary btn-xs" ng-if="need.deleteFlag==1" ng-click="viewDeactivatedNeed(need)" permission="[2,4]">View</button>
+										<button type="button" class="btn btn-primary btn-xs" ng-click="viewDeactivatedNeed(need)" permission="[3,5,6,7]">View</button>
+										<button type="button" class="btn btn-primary btn-xs" ng-if="need.deleteFlag==0" ng-click="deleteNeedOrInsight(need)" permission="[2,4]">Deactivate</button>
+										<button type="button" class="btn btn-primary btn-xs" ng-if="need.deleteFlag==1" ng-click="activateNeedOrInsight(need)" permission="[2,4]">Activate</button>
+									</td>
+								<!-- <tr>
+                                <td>2</td>
+                                <td>To appear Knowledgable</td>
+                                <td>Edit</td>
+                              </tr>
+                              <tr>
+                                <td>3</td>
+                                <td>To learn</td>
+                                <td>Edit</td>
+                              </tr> -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="text-align: center">Insights</div>
+					<div id="staticHight" class="table-responsive">
+						<table class="panel-body table table-hover" ng-init="getActiveInsights()">
+							<thead>
+								<tr>
+									<th></th>
+									<th></th>
+									<th></th>
+									<th>
+										<button type="button" class="btn btn-primary btn-xs" ng-click="createInsights()" permission="[2,4]">Create</button>
+										<button type="button" ng-hide="showInsightsFlag" class="btn btn-link btn-xs pull-right" ng-click="getAllInsights()">Show All</button>
+	                                	<button type="button" class="btn btn-link btn-xs pull-right" ng-show="showInsightsFlag" ng-click="getActiveInsights()">Show Active</button>
+                                	</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="insight in insights">
+									<td></td>
+									<td><div title="{{insight.description}}" ng-bind="::insight.descriptionShort"></div></td>
+									<td></td>
+									<td style="text-align: left;">
+										<button type="button" class="btn btn-primary btn-xs" ng-if="insight.deleteFlag==0" ng-click="editInsights(insight)" permission="[2,4]">Edit</button>
+										<button type="button" class="btn btn-primary btn-xs" ng-if="insight.deleteFlag==1" ng-click="viewDeactivatedInsight(insight)" permission="[2,4]">View</button>
+										<button type="button" class="btn btn-primary btn-xs" ng-click="viewDeactivatedInsight(insight)" permission="[3,5,6,7]">View</button>
+										<button type="button" class="btn btn-primary btn-xs" ng-if="insight.deleteFlag==0" ng-click="deleteNeedOrInsight(insight)" permission="[2,4]">Deactivate</button>
+										<button type="button" class="btn btn-primary btn-xs" ng-if="insight.deleteFlag==1" ng-click="activateNeedOrInsight(insight)" permission="[2,4]">Activate</button>
+									</td>
+								</tr>
+								<!-- <tr>
+                                <td>2</td>
+                                <td>To appear Knowledgable</td>
+                                <td>Edit</td>
+                              </tr>
+                              <tr>
+                                <td>3</td>
+                                <td>To learn</td>
+                                <td>Edit</td>
+                              </tr> -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Create POV -->
+<div class="panel">
+	<div class="panel-heading head" style="text-align: center" data-toggle="collapse" ng-init="getActiveQuestions()">Point Of Views (POVs)</div>
+	<br>
+	<div class="panel" ng-show="showpov" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center;">Create</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Point Of View<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <textarea type="text" class="form-control" ng-model="hmwQuestion" rows="3"></textarea>
+                <span ng-show="createPOVError">Required</span>
+            </div>
+        </div><br>
+        <div style="text-align: center">
+            <button type="button" class="btn btn-primary" ng-click="cancelAddHmw()">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="addHmwQuestion()">Submit</button><br>
+        </div>
+	</div>
+</div>
+
+<!-- View POV -->
+<div class="panel" ng-show="viewpov" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center;">View POV</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Point Of View</div>
+            <div class="col-sm-8">
+               {{questionDescription}}
+            </div>
+        </div><br>
+        <div style="text-align: center">
+            <button type="button" class="btn btn-primary" ng-click="!(editpov=false)">Cancel</button>
+           <!--  <button type="button" class="btn btn-primary" ng-click="updateQuestion(hmwQuestionEditable)">Submit</button><br> -->
+        </div>
+	</div>
+</div>
+
+<!-- Edit POV -->
+<div class="panel" ng-show="editpov" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center;">Edit POV</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Point Of View<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <textarea type="text" class="form-control" ng-model="hmwQuestionEditable.questionDescription" rows="3"></textarea>
+                <span ng-show="editPOVError">Required</span>
+            </div>
+        </div><br>
+        <div style="text-align: center">
+            <button type="button" class="btn btn-primary" ng-click="cancelUpdateHmw()">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="updateQuestion(hmwQuestionEditable)">Submit</button><br>
+        </div>
+	</div>
+</div>
+		
+	<div id="demo2"  class="table-responsive">
+		<table class="panel-body table table-hover">
+			<thead>
+				<tr>
+					<th></th>
+					<th></th>
+					<th><button type="button" class="btn btn-primary btn-xs" ng-click="!(showpov=true)" permission="[2,4]">Create</button>
+					<button type="button" ng-hide="showPovFlag" class="btn btn-link btn-xs pull-right" ng-click="getQuestions()">Show All</button>
+                    <button type="button" class="btn btn-link btn-xs pull-right" ng-show="showPovFlag" ng-click="getActiveQuestions()">Show Active</button></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="question in questions">
+					<td><div title="{{question.questionDescription}}" ng-bind="::question.questionDescriptionShort"></div></td>
+					<!-- <td title={{question.questionDescription}}>{{question.questionDescription}}</td> -->
+					<td><button type="button" class="btn btn-primary btn-xs" ng-click="modify(question)" ng-if="question.deleteFlag==0" permission="[2,4]">Edit</button>
+					<button type="button" class="btn btn-primary btn-xs" ng-click="showView(question.questionDescription)" ng-if="question.deleteFlag==1" permission="[2,4]">View</button>
+					<button type="button" class="btn btn-primary btn-xs" ng-click="showView(question.questionDescription)" permission="[3,5,6,7]">View</button>
+					<button type="button" class="btn btn-primary btn-xs" ng-click="deactivate(question.questionID)" ng-if="question.deleteFlag==0" permission="[2,4]">Deactivate</button>
+					<button type="button" class="btn btn-primary btn-xs" ng-click="activate(question.questionID)" ng-if="question.deleteFlag==1" permission="[2,4]">Activate</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div style="text-align: center">
+	<button type="button" class="btn btn-primary"
+		ng-click="goToIdeate()" permission="[2,3,5]">Go To Ideate</button>
+</div>

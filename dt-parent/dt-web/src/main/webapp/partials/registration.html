@@ -1,0 +1,70 @@
+	<div id="body" class="row">
+		<!--Header Part-->
+		<div id="header" class="row">
+			<div class="col-lg-6" id="headerlogo">
+				<img src="img/dt-logo.png">
+			</div>
+			<div class="col-lg-6" id="headerlogo">
+				<img class=" pull-right" src="img/techm-logo.png">
+			</div>
+		</div>
+	
+			
+			<div>
+				<div id="textarea" class="textarea">
+					 <center> <h3><font size="+3.5" color="darkgray" face="times new roman">Register</font></h3><br></center>
+					 	
+					 	<form name="form" role="form" novalidate>
+						<div class="form-group">
+					 	<input type="text" id="userId" name="userId" ng-model="userId" placeholder="Login Id*" class="form-control" ng-blur="checkUserNameAvailability()" required >
+					 	<span ng-show="userIdAvailabilityFlag" style="color: red">Sorry! Username Already Taken</span>
+						<span ng-show="form.userId.$error.required && form.userId.$dirty">Required</span>
+						</div>
+						<div class="form-group"> 
+						<input type="text" id="phoneNumber" ng-model="phoneNumber" name="phoneNumber" class="form-control" ng-blur="doInvalidForm()" placeholder="Contact Number*" ng-maxlength="10" ng-minlength="10" ng-pattern="/^[0-9]/" required>
+								<span ng-show="form.phoneNumber.$error.required && form.phoneNumber.$dirty">Required</span>
+								<span ng-show="!form.phoneNumber.$error.minLength && !form.phoneNumber.$error.maxLength && form.phoneNumber.$error.pattern && form.phoneNumber.$dirty">Numbers only.</span>
+								<span ng-show="!form.phoneNumber.$error.required && (form.phoneNumber.$error.minlength || form.phoneNumber.$error.maxlength) && form.phoneNumber.$dirty">10 characters.</span>	
+						</div>
+						<div class="form-group">				
+						<input type="email" id="email" name="email" ng-model="email" class="form-control" ng-blur="doInvalidForm()" placeholder="Email ID*" required/>
+								<span ng-show="form.email.$error.required && form.email.$dirty">Required</span>
+  								<span ng-show="!form.email.$error.required && form.email.$error.email && form.email.$dirty">Invalid email</span>
+						</div>
+						<div class="form-group">
+						<input type="text" id="address" ng-model="address" name="address" class="form-control" ng-blur="doInvalidForm()" placeholder="Address*" required/>
+								<span ng-show="form.address.$error.required && form.address.$dirty">Required</span>
+						</div>	 	
+						<div class="form-group">
+						<input type="text" id="lastName" ng-model="lastName" name="lastName" class="form-control" ng-blur="doInvalidForm()" placeholder="Last Name" />
+						</div>
+						<div class="form-group">
+						<input type="text" id="firstName" ng-model="firstName" name="firstName" class="form-control" ng-blur="doInvalidForm()" placeholder="First Name*" required/>
+							<span ng-show="form.firstName.$error.required && form.firstName.$dirty">Required</span>
+						</div>	 	
+						<div class="form-group">
+						<input type="password" id="password" ng-model="password" name="password" class="form-control" ng-blur="doInvalidForm()" placeholder="Password*" maxlength="12" required/>
+					 	 	<span ng-show="form.password.$error.required && form.password.$dirty">Required</span>
+						</div>	 	
+						<div class="form-group">	
+					 	<input type="password" id="password_c" name="password_c" ng-model="password_c" class="form-control" ng-blur="doInvalidForm()" placeholder="Confirm password*" maxlength="12" ng-keyup="checkPwd()" required  />
+							   <span ng-show="form.password_c.$error.required && form.password_c.$dirty">Please confirm your password.</span>
+							   <span ng-show="showError">Password does not match.</span>
+					 	</div>
+					 	<div style="text-align:center">	
+						 	<!-- <input type="image" src="img/back.png" width="45%" height="15%" alt="Back To Login" ui-sref="login" style="float:left"/>
+						 	<input type="image" src="img/register_now_button.jpg" width="45%" height="3%" alt="Submit" ng-disabled="form.$invalid"  ng-click="register()" style="float:left"/> -->
+						 	<button type="button" class="btn btn-default btn-md" style="background:black;border-color:black;color:white;" ui-sref="login">Back</button>&nbsp;&nbsp;&nbsp;&nbsp;
+						 	<button type="button" class="btn btn-default btn-md" style="background:black;border-color:black;color:white;" ng-click="register()" ng-disabled="form.$invalid" >Register Now</button>
+					 	</div>
+					 </form>
+				</div>
+			</div>
+			
+		
+	</div>
+
+	<!--Footer-->
+	<div id="footer">
+    <div><p align=right>&copy;2016 Tech Mahindra Limited. All rights reserved</p></div>
+	</div>

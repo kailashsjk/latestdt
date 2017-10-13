@@ -1,0 +1,185 @@
+<div class="row">
+   <div class="col-md-2 col-xs-4 col-sm-4" style="font-weight: bold;">
+        Project Name :
+    </div>
+    <div class="col-md-3 col-xs-8 col-sm-8" style="margin-left:-5%">
+        {{project.projectName}}
+    </div>
+    <div class="col-md-2 col-xs-4 col-sm-4"><strong>Stage :</strong>
+    </div>
+    <div class="col-md-1 col-xs-4 col-sm-4 pull-left" style="margin-left:-5%">{{project.projectStage.projectStageDescription}}
+    </div>
+</div><br>
+<div class="panel" ng-show="show" style="border: 1px solid black">
+	<div class="panel-heading head" style="text-align: center">Capture
+		Prototype Selection</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-sm-4">Idea Group</div>
+			<div class="col-sm-8">{{igname}}</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-sm-4">Prototype Description</div>
+			<div class="col-sm-8">{{prototypeDescription}}</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-4">Prototype Feedback<font color="red">*</font></div>
+			<div class="col-lg-8">
+				<input type="text" class="form-control" ng-model="prototypeFeedbackDescription">
+				<span ng-show="prototypeFeedbackError">Required</span>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-4">Selection</div>
+			
+			<div class="col-lg-8">
+				<form role="form">
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" ng-click="(reject=false)" ng-model="check" value="1">Accept
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" ng-click="(reject=true)" ng-model="check" value="0">Reject
+                    </label>
+                    <!-- <div class="row" ng-if="(reject==true)">
+					     <div class="col-sm-8" ng-init="getProjectStages()">
+					     	<select class="form-control" ng-model="projectStageVal" ng-options="projectStage.projectStageID as projectStage.projectStageDescription for projectStage in projectStages">
+					         <option value="4">Go To Prototype</option>
+					         <option value="3">Go To Ideate</option>
+					         <option value="1">Go To Empathize</option>
+					    	</select>
+					    </div>
+					</div> -->
+                </form>
+                </div>
+		</div>
+	</div>
+	<div style="text-align: center">
+		<button type="button" class="btn btn-primary" ng-click="cancelAddPrototypeFeedback()">Cancel</button>
+		<button type="button" class="btn btn-primary" ng-click="addPrototypeFeedback(prototypeId)">Submit</button>
+	</div>
+	<br>
+</div>
+
+<!-- View FeedBacks -->
+<div class="panel" ng-show="showview" style="border: 1px solid black">
+	<div class="panel-heading head" style="text-align: center">View
+		Prototype Selection</div>
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-sm-4">Idea Group</div>
+			<div class="col-sm-8">{{prototypeFeedbackView.igname}}</div>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="col-sm-4">Prototype Description</div>
+			<div class="col-sm-8">{{prototypeFeedbackView.prototypeDescription}}</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-4">Prototype Feedback</div>
+			<div class="col-lg-8">{{prototypeFeedbackView.prototypeFeedbackDescription}}</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-4">Selection</div>
+			<div class="col-lg-8">
+				<span style="text-align:center" ng-if = prototypeFeedbackView.deleteFlag> &#10003;</span>
+                <span style="text-align:center" ng-if = !prototypeFeedbackView.deleteFlag> &#x2716;</span>
+			</div>
+		</div>
+	</div>
+	<div style="text-align: center">
+		<button type="button" class="btn btn-primary" ng-click="(showview=false)">Cancel</button>
+	</div>
+	<br>
+</div>
+
+<div class="panel">
+	<div class="panel-heading head" style="text-align: center">Prototype Selection</div>
+</div>
+<div class="panel panel-default">
+	<div class="table-responsive" ng-init="getActivePrototypes()">
+		<table class="panel-body table table-hover">
+			<thead class="panel-heading">
+				<tr>
+					<th>Idea Group</th>
+					<th>Prototype Description</th>
+					<th class="ng-class:resize" style="text-align:center">Media</th>
+					<th class="ng-class:resize">Prototype Feedback</th>
+					<th style="text-align:left">
+					<button class="btn btn-link btn-xs pull-left hidden-lg" ng-hide="tableSize" ng-click="expand()">Expand</button>
+                    <button class="btn btn-link btn-xs pull-left hidden-lg" ng-show="tableSize" ng-click="collapse()">collapse</button>
+                    <label>Actions</label>
+                    </th>
+					<th class="ng-class:resize" style="text-align:center">Select</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="prototypeFeedback in prototypeDatas">
+					<td title={{prototypeFeedback.igname}}>{{prototypeFeedback.ignameShort}}</td>
+					<td title={{prototypeFeedback.prototypeDescription}}>{{prototypeFeedback.prototypeDescriptionShort}}</td>
+                    <td class="ng-class:resize" style="text-align:center"><div ng-if="prototypeFeedback.mediaFlag">&#10003;</div></td>
+					<td class="ng-class:resize" title={{prototypeFeedback.prototypeFeedbackDescription}}>{{prototypeFeedback.prototypeFeedbackDescriptionShort}}</td>
+					<td><button type="button" style="margin-right: 10px" class="btn btn-primary btn-xs" ng-hide="flag[prototypeFeedback.prototypeFeedbackID]" ng-click="showMedia(prototypeFeedback.prototypeFeedbackID,prototypeFeedback.prototypeId)" ng-disabled="!prototypeFeedback.mediaFlag">Show</button>
+						<button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs" ng-show="flag[prototypeFeedback.prototypeFeedbackID]" ng-click="hideMedia(prototypeFeedback.prototypeFeedbackID)" ng-disabled="!prototypeFeedback.mediaFlag">Hide</button>
+						<button type="button" class="btn btn-primary btn-xs" ng-click="showFeedback(prototypeFeedback.igname,prototypeFeedback.prototypeDescription,prototypeFeedback.prototypeId,prototypeFeedback.prototypeFeedbackDescription, prototypeFeedback.deleteFlag)" permission="[2,7]">Edit</button>
+						<!-- <button type="button" class="btn btn-primary btn-xs" ng-click="view(prototypeFeedback)" ng-if="prototypeFeedback.deleteFlag==1" permission="[2,7]">View</button> -->
+						<button type="button" class="btn btn-primary btn-xs" ng-click="view(prototypeFeedback)" permission="[3,4,5,6]">View</button>
+					</td>
+					<td class="ng-class:resize" style="text-align:center" ng-if = prototypeFeedback.deleteFlag> &#10003;</td>
+                    <td class="ng-class:resize" style="text-align:center" ng-if = !prototypeFeedback.deleteFlag> &#x2716;</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+ <div ng-show="show1" >
+ 	<div class="row" >
+	 	<div class="col-lg-4 btn-group-vertical">
+			<div ng-repeat="uploadedDocument in uploadedDocuments">
+			
+				<button type="button" class="btn btn-link" ng-if="uploadedDocument.mediaType.mediaTypeID == 1"	ng-click="showImage(uploadedDocument)">{{uploadedDocument.documentName}}</button>
+				<button type="button" class="btn btn-link" ng-if="uploadedDocument.mediaType.mediaTypeID == 3"	ng-click="launchMedia($event, uploadedDocument)">{{uploadedDocument.documentName}}</button>
+				
+			</div>
+			<div ng-show="loading" style="text-align:center">
+				<img src="img/Loading.gif" />
+			</div>
+		</div>
+		<div class="col-lg-8">					
+			<div ng-show="show2">
+				<img src="{{picurl}}" class="img-thumbnail" alt="Cinque Terre"
+					width="304" height="236">
+			</div>
+			<div ng-show="showvedio" style="text-align:center">
+				<video class="pull-right" controls  width="640" height="440" id="video" ng-src="{{picurl}}"></video>
+			</div>
+		</div>
+	</div>
+</div>
+</br>
+<div class="row" permission="[2]">
+
+	<div class="col-xs-6 col-sm-6 col-md-2" ng-init="getProjectStages()">
+		<select class="form-control" ng-model="projectStageVal"
+			ng-options="projectStage.projectStageID as projectStage.projectStageDescription for projectStage in projectStages">
+		</select>
+	</div>
+	<div class="col-xs-6 col-sm-6 col-md-2">
+		<button type="button" class="btn col-xs-12 col-sm-12 col-md-12 btn-primary"
+			ng-click="updateProjectStage()">Go To Tab</button>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-2 pull-right">
+		<button type="button" style="margin-top:10px" class="btn col-xs-12 col-sm-12 btn-primary pull-right"
+			ng-click="closeProject()">Close Project</button>
+	</div>
+</div>
+<br>
+
+

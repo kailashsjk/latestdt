@@ -1,0 +1,306 @@
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+p{   
+	margin: 35px 0px 50px;
+}
+
+.navbar-default {
+    background-color: #F8F8F8;
+    border-color: #E7E7E7;
+}
+ #projectHead{
+ 	padding: -50px;
+ }
+  
+ .head{
+ background-color:lightgrey;
+ }
+ /* table, .th {
+   border-left: 1px solid white;
+} */
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+/* p{   
+	margin: 35px 0px 60px;
+} */
+
+.navbar-default {
+    background-color: #F8F8F8;
+    border-color: #E7E7E7;
+}
+ #projectHead{
+ 	padding: -50px;
+ }
+  
+ .head{
+ background-color:lightgrey
+ }
+#header {
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    padding: 0;
+    margin: 0;
+	overflow-y: hidden; 
+	overflow-x: hidden; 
+}
+
+
+.loginlogo{
+   position: relative;
+   top: 38px;
+   right: -1080px;
+  
+}
+/* .panel panel-default{
+	background-color: solid-black;
+} */
+/* .panel-heading {
+	background-color: #212121;
+} */
+#footer {
+    position: relative;
+   	font-family: PT sans;
+	background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    width: 103%;
+    height: 42px;
+    padding: 5px;
+    margin-left: -25px;
+	margin-right: -25px;
+	overflow-y: hidden; 
+	overflow-x: hidden; 
+}
+#body{/* 
+    width: auto;
+    height: auto; */
+    background-image: url('../img/Background-bg.jpg');
+    background-size: 100% 100%;
+	background-repeat: no-repeat;
+	overflow-y: hidden; 
+	overflow-x: hidden; 
+}
+
+#reg_body{
+    width: auto;
+    height: auto;
+    background-image: url('../img/Background-bg.jpg');
+    background-size: 100% 100%;
+	background-repeat: no-repeat;
+	overflow-y: hidden; 
+	overflow-x: hidden; 
+}
+.formLogin{
+	background-color: white;
+	width:auto;	
+	float:right;
+	margin-right:60px;
+	margin-left:20px;
+	margin-top:-35px;
+	padding-top:40px;
+	padding-left: 25px;
+	padding-right:15px;
+	border-radius: 10px;
+}
+
+.textarea input[type=text]{
+	width: 300px;
+	border-radius:5px;
+}
+.textarea input[type=password]{
+	width: 300px;
+	border-radius:5px;
+}
+.textarea input[type=email]{
+	width: 300px;
+	border-radius:5px;
+}
+.textarea input[type=number]{
+	width: 300px;
+	border-radius:5px;
+}
+
+.formLogin input[type=text]{
+	width: 300px;
+	background-color : #d3d3d3;
+	size:10;
+}
+.formLogin input[type=password]{
+	width: 300px;
+	background-color : #d3d3d3;
+}
+
+.formLogin a {
+    color: #e51837;
+}
+
+#textarea{
+	background-color: white;
+	float:right;
+	margin-right:60px;
+	margin-left:20px;
+	margin-top:0px;
+	margin-bottom:50px;
+	padding-top:0px;
+	padding-left: 25px;
+	padding-right:15px;
+	border-radius: 10px;
+    background: show-white;
+    overflow-y:scroll;
+    overflow-x:hidden;
+    width:400px;height:530px;'
+}
+
+input.ng-invalid && input.ng-dirty{
+border: 2px solid red;
+}
+input.ng-valid && input.ng-pristine{
+border: 2px solid green;
+}	
+
+/* deep modify */
+
+#headerlogo{
+	padding-top: 3%;
+	padding-bottom: 3%;
+	padding-left: 1%;
+	padding-right: 1%;
+}
+
+#banner{/* 
+	 width: auto;
+     height: auto; */
+	 background-image:url('../img/top-banner.jpg');
+	 background-repeat: no-repeat;
+	 background-size: 100% 100%;
+}
+/* .disabled {
+  cursor: not-allowed;
+} */ 
+.on-drag-enter{
+    background-color : #aaaaaa;
+}
+.on-drag-hover:before {
+  content: 'Drop gently';
+  display: block;
+  color: white;
+  font-size: x-large;
+  font-weight: 800;
+}
+#staticHight{
+	max-height:180px;
+	overflow-y:scroll;
+}
+.customView {
+    width: 50px !important;
+}
+.customActivation {
+    width: 70px !important;
+}
+.sizeRestrict {
+ 	width: 200px;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
+}
+#staticHightDefine{
+	height:180px;
+	overflow-y:scroll;
+}
+
+<!--NEW ENTRY -->
+#custom-bootstrap-menu.navbar-default .navbar-brand {
+    color: rgba(255, 255, 255, 1);
+}
+#custom-bootstrap-menu.navbar-default {
+    font-size: 14px;
+    background-color: rgba(48, 46, 46, 1);
+    border-width: 0px;
+    border-radius: 6px;
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(48, 46, 46, 1);
+}
+#custom-bootstrap-menu .navbar-default .navbar-nav>.disabled>li>a,
+#custom-bootstrap-menu .navbar-default .navbar-nav>.disabled>li>a:focus,
+#custom-bootstrap-menu .navbar-default .navbar-nav>.disabled>li>a>:hover {
+    color: red;
+    background-color: transparent;
+}
+#custom-bootstrap-menu .navbar-default .navbar-nav>.disabled>a,
+#custom-bootstrap-menu .navbar-default .navbar-nav>.disabled>a:focus,
+#custom-bootstrap-menu .navbar-default .navbar-nav>.disabled>a>:hover {
+    color: red;
+    background-color: transparent;
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>li>a:focus {
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(19, 20, 20, 1);
+}
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:hover,
+#custom-bootstrap-menu.navbar-default .navbar-nav>.active>a:focus {
+    color: rgba(255, 255, 255, 1);
+    background-color: #337ab7;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle {
+    border-color: #337ab7;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus {
+    background-color: #337ab7;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle .icon-bar {
+    background-color: #337ab7;
+}
+#custom-bootstrap-menu.navbar-default .navbar-toggle:hover .icon-bar,
+#custom-bootstrap-menu.navbar-default .navbar-toggle:focus .icon-bar {
+    background-color: #302e2e;
+}
+/* li.disabled > a {
+  	color:#989898 !important;
+} */
+#custom-bootstrap-menu.navbar-default .navbar-nav> .affix-top {
+      width: 100%;
+  }

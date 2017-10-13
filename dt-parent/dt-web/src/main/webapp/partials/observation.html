@@ -1,0 +1,83 @@
+<div class="panel panel-danger">
+    <div class="panel-heading" style="text-align:center">View Ideas</div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3" style="font-weight: bold">
+        Preoject Name :
+    </div>
+    <div class="col-sm-9" style="font-weight: bold">
+        Improve the Car Maintenance Experince
+    </div>
+</div><br>
+<div class="panel panel-default">
+                    <div>
+                        <table class="panel-body table table-condensed">
+                            <thead class="panel-heading">
+                              <tr>
+                                <th>S No</th>
+                                <th>HMW Question</th>
+                                <th>Idea</th>
+                                <th>Idea Category</th>
+                                <th>Created By</th>
+                                <th>Created Date</th>
+                                <th>Finalize Idea</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1</td>
+                                <td>To be feed</td>
+                                <td>To be  feed</td>
+                                <td>To be  feed</td>
+                                <td>To be  feed</td>
+                                <td>To be  feed</td>
+                                <td>To be  feed</td>
+                              </tr>                             
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+<div style="text-align: center">
+    <button type="button" class="btn btn-info" ng-click="!(show=true)">Create Observations</button>
+    <button type="button" class="btn btn-info" ui-sref= "home.projects.details.empathy">View Empathy Map</button>
+</div>
+<div class="panel panel-danger"  ng-show="show">
+    <div class="panel-heading" style="text-align:center">Create Observations</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Interviewee Name</div>
+            <div class="col-sm-8">
+                <select class="form-control" ng-model="policyHolder.title" ng-options="i.id as i.name for i in items">
+                <option value=""></option>
+                </select>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Media</div>
+            <div class="col-sm-8">
+                <select class="form-control" ng-model="policyHolder.title" ng-options="i.id as i.name for i in items">
+                <option value=""></option>
+                </select>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Observation Category</div>
+            <div class="col-sm-8">
+                <select class="form-control" ng-model="policyHolder.title" ng-options="i.id as i.name for i in items">
+                <option value=""></option>
+                </select>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Observation Notes</div>
+            <div class="col-lg-8">
+                <input type="text" class="form-control">
+            </div>
+        </div>
+    </div>   
+    <div style="text-align: center">
+        <button type="button" class="btn btn-info" ng-click="!(show=false)">Cancle</button>
+        <button type="button" class="btn btn-info" ng-click="goToIdea()">Submit</button>
+    </div>
+</div>

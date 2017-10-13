@@ -1,0 +1,50 @@
+
+	<div id="body" class="row">
+		<!--Header Part-->
+		<div id="header" class="row">
+			<div class="col-lg-6" id="headerlogo">
+				<img src="img/dt-logo.png">
+			</div>
+			<div class="col-lg-6" id="headerlogo">
+				<img class=" pull-right" src="img/techm-logo.png">
+			</div>
+		</div>
+
+
+
+		<div id="loginarea" class="loginarea">
+			<img src="img/user-icon.png" class="loginlogo">
+		</div>
+		<div>
+			<div class="formLogin" id="formLogin">
+				<center>
+					<h3>Associate Login</h3>
+					<br>
+				</center>
+				<form name="form">
+					<input type="text" align="right" class="form-control" id="userId"
+						ng-model="userId" placeholder="Login Id" required> <br>
+					<input type="password" class="form-control" id="password"
+						ng-model="password" placeholder="*********" required> <br>
+
+					<!-- <input type="image" src="img/login-btn.png" width=100% alt="Submit"
+						ng-click="home();" /> -->
+					<button type="button" class="btn btn-default btn-block" style="background:black;border-color:black;color:white;" ng-click="home();">Login</button>
+					<div ng-show="error" style="color:red"> Invalid Username or Password</div>	
+					<center>
+						<p>
+							Not already registered, <a ui-sref="registration">Register Now</a>
+						</p>
+					</center>
+					<br>
+				</form>
+			</div>
+		</div>
+		</form>
+
+	</div>
+	<!--Footer-->
+	<div id="footer" class="row">
+			<h5 align=right>&copy;2016 Tech Mahindra Limited. All rights
+				reserved</h5>
+	</div>

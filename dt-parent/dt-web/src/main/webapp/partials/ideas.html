@@ -1,0 +1,462 @@
+<div class="row">
+        <div class="col-md-2 col-xs-4 col-sm-4" style="font-weight: bold;">
+        Project Name :
+    </div>
+    <div class="col-md-3 col-xs-8 col-sm-8" style="margin-left:-5%">
+        {{project.projectName}}
+    </div>
+    <div class="col-md-2 col-xs-4 col-sm-4"><strong>Stage :</strong>
+    </div>
+    <div class="col-md-1 col-xs-4 col-sm-4 pull-left" style="margin-left:-5%">{{project.projectStage.projectStageDescription}}
+    </div>
+</div><br>
+
+<div class="panel">
+    <div class="panel-heading head" style="text-align:center" ng-init="activeIdeas()"><strong>Ideas</strong>
+    <button type="button" class="btn btn-primary pull-right" ng-click="!(show=true)" style="margin:-5px" permission="[2,5]">Create Idea</button>
+    <div class="clearfix"></div>
+    </div>
+</div>
+
+<div class="panel"  ng-show="show" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center">Create Idea</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Idea<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" ng-model="idea">
+                <span ng-show="createIdeaError">Required</span>
+            </div>
+        </div><br>
+    </div>
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="cancelAddIdea()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="addIdea(projectId)">Submit</button>
+    </div><br>
+</div>
+
+
+<div class="panel"  ng-show="showViewIdea" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center">View Idea</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Idea:</div>
+            <div class="col-sm-8">
+              <!-- <input class="form-control" type="text" ng-model="ideaDescription" ng-readonly="true"> --> 
+               {{ideaDescription}}
+            </div>
+        </div><br>
+<!--         <div class="row">
+            <div class="col-sm-4">Idea Category</div>
+            <div class="col-sm-8">
+                <select class="form-control" ng-model="i.name" ng-options="i.id as i.name for i in ideaCategories">
+                <option value=""></option>
+                </select>
+            </div>
+        </div> -->
+    </div>
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="!(showViewIdea=false)">Cancel</button>
+      
+    </div><br>
+</div>
+
+
+
+
+<div class="panel"  ng-show="showEditIdea" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center">Edit Idea</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Idea<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" ng-model="ideaEdit.ideaDescription">
+                <span ng-show="updateIdeaError">Required</span>
+            </div>
+        </div><br>
+<!--         <div class="row">
+            <div class="col-sm-4">Idea Category</div>
+            <div class="col-sm-8">
+                <select class="form-control" ng-model="i.name" ng-options="i.id as i.name for i in ideaCategories">
+                <option value=""></option>
+                </select>
+            </div>
+        </div> -->
+    </div>
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="cancelUpdateIdea(ideaEdit)">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="updateIdea(ideaEdit)">Submit</button>
+    </div><br>
+</div>
+<div class="panel panel-default">
+      <div class="table-responsive">
+         <table class="panel-body table table-hover">
+             <thead class="panel-heading">
+               <tr>
+                 <!-- <th>S No</th> -->
+                 <!-- <th>HMW Question</th> -->
+                 <th>Idea</th>
+                 <th class="ng-class:resize1">Created By</th>
+                 <th class="ng-class:resize1">Created Date</th>
+                  <th style="text-align:left">
+                  <button class="btn btn-link btn-xs pull-left hidden-lg" ng-hide="tableSize1" ng-click="expand1()">Expand</button>
+                  <button class="btn btn-link btn-xs pull-left hidden-lg" ng-show="tableSize1" ng-click="collapse1()">collapse</button>
+                  <label>Actions</label>
+                  <button type="button" ng-hide="showIdeaFlag" class="btn btn-link btn-xs pull-right" ng-click="allIdeas()">Show All</button>
+                 <button type="button" class="btn btn-link btn-xs pull-right" ng-show="showIdeaFlag" ng-click="activeIdeas()">Show Active</button></th>
+               </tr>
+             </thead>
+             <tbody>
+               <tr ng-repeat="idea in ideas">
+                 <!-- <td>{{idea.ideaId}}</td> -->
+                <!--  <td>{{idea.questionDescription}}</td> -->
+                	<td><div title="{{idea.ideaDescription}}" ng-bind="::idea.ideaDescriptionShort"></div></td>
+                 <!-- <td title="{{idea.ideaDescription}}">{{idea.ideaDescription}}</td> -->
+                 <td class="ng-class:resize1">{{idea.createdBy}}</td>
+                 <td class="ng-class:resize1">{{idea.createdDate}}</td>
+                 <td style="text-align:left;">
+                  <button type="button" class="btn btn-primary btn-xs" ng-click="showFeedback(idea.ideaDescription,idea.ideaId)" permission="[2,5]">Feedback</button>
+                  <button type="button" class="btn btn-primary btn-xs" ng-click="editIdea(idea)" ng-if="idea.deleteFlag==0" permission="[2,5]">Edit</button>
+                  <button type="button" class="btn btn-primary btn-xs" ng-click="showView(idea.ideaDescription)" ng-if="idea.deleteFlag==1" permission="[2,5]">View</button>
+                  <button type="button" class="btn btn-primary btn-xs" ng-click="showView(idea.ideaDescription)" permission="[3,4,6,7]">View</button>
+                  <button type="button" class="btn btn-primary btn-xs" ng-click="deactivate(idea.ideaId)" ng-if="idea.deleteFlag==0" permission="[2,5]">Deactivate</button>
+                  <button type="button" class="btn btn-primary btn-xs" ng-click="activate(idea.ideaId)" ng-if="idea.deleteFlag==1" permission="[2,5]">Activate</button>
+                 </td>
+               </tr>                             
+             </tbody>
+         </table>
+     </div>
+ </div>
+
+<div class="panel"  ng-show="show1" style="border: 1px solid black"> 
+    <div class="panel-heading head" style="text-align:center">Capture Feedback</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Idea</div>
+            <div class="col-sm-8" ng-bind="ideaDesc"></div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Feedback Category<font color="red">*</font></div>
+             <div class="col-sm-8" ng-init="getIdeaCategory()">
+                <select class="form-control" ng-model="ideaCategoryId" ng-options="i.ideaCategoryId as i.ideaCategoryDescription for i in ideaCategory">
+                <option value=""></option>
+                </select>
+                <span ng-show="createFeedbackError1">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Idea Feedback<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" ng-model="ideaFeedbackDescription" >
+                <span ng-show="createFeedbackError2">Required</span>
+            </div>
+        </div>
+        	<br>
+		<div class="row">
+			<div class="col-sm-4">Selection<font color="red">*</font></div>
+			
+			<div class="col-lg-8">
+				<form role="form">
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" ng-click="(reject=false)" ng-model="check" value="1">Accept
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="optradio" ng-click="(reject=true)" ng-model="check" value="0">Reject
+                    </label>
+                </form>
+                </div>
+		</div>
+    </div>
+    
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="cancelAddIdeaFeedback()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="addIdeaFeedbacks(ideaId)">Submit</button>
+    </div><br>
+</div>
+<div class="panel">
+    <div class="panel-heading head" style="text-align:center">Idea Feedback</div>
+</div>
+<div class="panel panel-default">
+    <div class="table-responsive" ng-init="getIdeaFeedback()">
+        <table class="panel-body table table-hover">
+            <thead class="panel-heading">
+              <tr><!-- 
+                <th>HMW Question</th> -->
+                <th>Idea</th>
+                <th>Idea Category</th>
+                <th class="ng-class:resize2">Idea Feedback</th>
+                <th class="ng-class:resize2">Created By</th>
+                <th class="ng-class:resize2">Created Date</th>
+                <th style="text-align:center">
+                <button class="btn btn-link btn-xs pull-left hidden-lg" ng-hide="tableSize2" ng-click="expand2()">Expand</button>
+                <button class="btn btn-link btn-xs pull-left hidden-lg" ng-show="tableSize2" ng-click="collapse2()">collapse</button>
+                <label>Select</label>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="ideaFeedback in ideaFeedbacks">
+<!--                                 <td>{{ideaFeedback.questionDescription}}</td> -->
+                <td title="{{ideaFeedback.ideaDescription}}">{{ideaFeedback.ideaDescription}}</td>
+                <td>{{ideaFeedback.ideaCategoryDescription}}</td>
+                <td class="ng-class:resize2"><div title="{{ideaFeedback.ideaFeedbackDescription}}" ng-bind="::ideaFeedback.ideaFeedbackDescription"></div></td>
+                <!-- <td>{{ideaFeedback.ideaFeedbackDescription}}</td> -->
+                <td class="ng-class:resize2">{{ideaFeedback.createdBy}}</td>
+                <td class="ng-class:resize2">{{ideaFeedback.createdDate}}</td>
+                <td style="text-align:center" ng-if = ideaFeedback.deleteFlag> &#10003;</td>
+                <td style="text-align:center" ng-if = !ideaFeedback.deleteFlag> &#x2716;</td>
+              </tr>                             
+            </tbody>
+        </table>
+    </div>
+</div>
+                
+            
+          
+<!-- Idea Group -->
+
+<!-- <div class="row">
+        <div class="col-sm-2" style="font-weight: bold; margin-right: -100px;">
+    </div>
+    <div class="col-sm-5" style="margin-left:-10px">
+    </div>
+    <div class="col-sm-5  pull-right">
+        <button type="button"  class="btn btn-primary pull-right" ng-click="!(showCreateIdeaGroup=true)">Create Idea Group</button>
+    </div>
+</div><br> -->
+<div class="panel">
+    <div class="panel-heading head" style="text-align:center"><strong>Idea Groups</strong>
+    <button type="button"  class="btn btn-primary pull-right" ng-click="!(showCreateIdeaGroup=true)" style="margin:-5px" permission="[2,5]">Create Idea Group</button>
+    <div class="clearfix">
+    </div>
+</div>
+<br>  
+<div class="panel" style="border: 1px solid black"  ng-show="showCreateIdeaGroup">
+	<div class="panel-heading head" style="text-align: center">
+		Create Idea Group
+		<button type="button" class="btn btn-link btn-xs pull-right"
+			ng-click="toggleModal1()">Help</button>
+		<helpmodal visible="showModal1">
+		<div style="text-align: left">
+			<p>IDENTIFY NEEDS: Needs are human emotional or physical necessities. Needs help define your design challenge. Remember: Needs are verbs (activities and desires with which your user could use help), not nouns (solutions). Identify needs directly out of the user traits you noted, or from contradictions between two traits - such as a disconnect between what she says and what she does. Write down needs on the side of your Empathy Map.</p>
+			<p>IDENTIFY INSIGHTS: An Insight is a remarkable realization that you could leverage to better respond to a design challenge. Insights often grow from contradictions between two user attributes (either within a quadrant or from two different quadrants) or from asking yourself "Why?" when you notice strange behavior. Write down potential insights on the side of your Empathy Map. One way to identify the seeds of insights is to capture "tensions", contradictions", and "surprises" as you work.</p>
+		</div>
+		</helpmodal>
+	</div>
+	<br>
+	<div class="row" style="margin:5px">
+		<div class="col-lg-4">Idea Group Name <font color="red">*</font></div>
+		<div class="col-lg-8">
+			<input class="form-control" type="text" ng-model="ideagname" >
+			<span ng-show="createIGError">Required</span>
+		</div>
+	</div>
+	 <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="cancelAddIdeaGroup()">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="addIdeaGroup(projectId)">Submit</button>
+    </div><br>
+</div>
+<div class="panel"  ng-show="showEditIdeaGroup" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center">Edit Idea Group</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Idea Group Name<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input class="form-control" type="text" ng-model="ideaGroupEdit.igname">
+                <span ng-show="updateIGError">Required</span>
+            </div>
+        </div><br>
+    </div>
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="!(showEditIdeaGroup=false)">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="updateIdeaGroups(ideaGroupEdit)">Submit</button>
+    </div><br>
+</div>
+
+
+
+
+<div class="panel"  ng-show="showViewIdeaGroup" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center">View Idea Group</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Idea Group Name:</div>
+            <div class="col-sm-8">
+                <!--  <input class="form-control" type="text" ng-model="igname" ng-readonly="true">-->
+                {{igname}}
+            </div>
+        </div><br>
+<!--         <div class="row">
+            <div class="col-sm-4">Idea Category</div>
+            <div class="col-sm-8">
+                <select class="form-control" ng-model="i.name" ng-options="i.id as i.name for i in ideaCategories">
+                <option value=""></option>
+                </select>
+            </div>
+        </div> -->
+    </div>
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="!(showViewIdeaGroup=false)">Cancel</button>
+      
+    </div><br>
+</div>
+
+<!-- REPLACED -->
+<div class="panel" ng-show="showAssignIdea" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center">Assign Ideas to Group</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Idea Group Name:&nbsp&nbsp<strong>{{ideaGroupName}}</strong></div>
+            <!-- <div class="col-sm-8">
+            	<strong>{{ideaGroupName}}</strong>
+                <input class="form-control" type="text" ng-model="ideaGroupEdit.ideaGroupName">
+            </div> -->
+        </div><br>
+        	<div class="panel-body" id="demo1" class="panel-collapse collapse">
+				<div class="row">
+					<div class="col-sm-5">
+						<div class="panel panel-default" ng-init="getAvailableIdeas()">
+							<div class="panel-heading" style="text-align: center">Available Ideas</div>
+							<!-- <div ng-init="ideasForGroup()" ui-on-Drop="onDrop($event,$data,ideas4Group)"> -->
+							<div>
+								
+									
+									<select size="5" ng-model="available"  multiple ng-options="idea as idea.ideaDescription for idea in ideas4Group" style="width: 100%;border:none;"></select>
+									<!-- <tr ui-draggable="true" drag="idea" on-drop-success="dropSuccessHandler($event,$index,ideas4Group)" ng-repeat="idea in ideas4Group">
+											<td>{{idea}}</td>
+										</tr> -->							
+									
+								
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-2" style="text-align:center"><br>
+					<input type="button" value="  >>  " ng-click="moveAll(available, ideas4Group, ideasGroup)" />
+					<input type="button" value="  >  " ng-click="moveItem(available[0], ideas4Group, ideasGroup)" /><br><br>
+					<input type="button" value="  <  " ng-click="moveItem(selected[0], ideasGroup, ideas4Group)" />
+					<input type="button" value="  <<  " ng-click="moveAll(selected, ideasGroup, ideas4Group)" /><br><br>
+					</div>
+					<div class="col-sm-5">
+						<div class="panel panel-default">
+							<div class="panel-heading" style="text-align: center">Assigned Ideas</div>
+							<!-- <div ng-init="getIdeasGroup()" ui-on-Drop="onDrop($event,$data,ideasGroup)"> -->
+							<div>
+								
+								
+									<select size="5" ng-model="selected" multiple ng-options="ideasInGroup as ideasInGroup.ideaDescription for ideasInGroup in ideasGroup" style="width: 100%;border:none;"></select>
+									<!-- <tr ui-draggable="true" drag="ideasInGroup" on-drop-success="dropSuccessHandler($event,$index,ideasGroup)" ng-repeat="ideasInGroup in ideasGroup">
+											<td style="min-height:100px">{{ideasInGroup}}</td>
+										</tr> -->
+									
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </div>
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="!(showAssignIdea=false)">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="updateIdeaGroup(ideasGroup)">Submit</button>
+    </div><br>
+</div>
+<!-- Replaced till -->
+<div class="panel" ng-show="showAssignPovs" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center">Assign Povs to Idea Group</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Idea Group Name: &nbsp&nbsp<strong>{{ideaGroupName}}</strong></div>
+            <!-- <div class="col-sm-8">
+            	<strong>{{ideaGroupName}}</strong>
+                <input class="form-control" type="text" ng-model="ideaGroupEdit.ideaGroupName">
+            </div> -->
+        </div><br>
+        	<div class="panel-body" id="demo1" class="panel-collapse collapse">
+				<div class="row">
+					<div class="col-sm-5">
+						<div class="panel panel-default" ng-init="getAvailablePOVs()">
+							<div class="panel-heading" style="text-align: center">Available POVs</div>
+							<!-- <div ng-init="povsForGroup()" ui-on-Drop="onDrop($event,$data,povs4Group)"> -->
+							<div>
+								<select size="5" ng-model="availablepovs"  multiple ng-options="pov as pov.questionDescription for pov in povs4Group" style="width: 100%;border:none;"></select>
+										<!-- <tr ui-draggable="true" drag="pov" on-drop-success="dropSuccessHandler($event,$index,pov4Group)" ng-repeat="pov in povs4Group">
+											<td>{{pov}}</td>
+										</tr> -->							
+									
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-2" style="text-align:center"><br>
+					<input type="button" value="  >>  " ng-click="moveAll(availablepovs, povs4Group, povsGroup)" />
+					<input type="button" value="  >   " ng-click="moveItem(availablepovs[0], povs4Group, povsGroup)" /><br><br>
+					<input type="button" value="  <   " ng-click="moveItem(selectedpovs[0], povsGroup, povs4Group)" />
+					<input type="button" value="  <<  " ng-click="moveAll(selectedpovs, povsGroup, povs4Group)" /><br><br>
+					</div>
+					<div class="col-sm-5">
+						<div class="panel panel-default">
+							<div class="panel-heading" style="text-align: center">Assigned POVs</div>
+							<!-- <div ng-init="getPOVsGroup()" ui-on-Drop="onDrop($event,$data,povsGroup)"> -->
+							<div>
+								<select size="5" ng-model="selectedpovs" multiple ng-options="povsInGroup as povsInGroup.questionDescription for povsInGroup in povsGroup" style="width: 100%;border:none;"></select>
+								<!-- <table class="panel-body table">
+									<tbody>
+										<tr ui-draggable="true" drag="povsInGroup" on-drop-success="dropSuccessHandler($event,$index,povsGroup)" ng-repeat="povsInGroup in povsGroup">
+											<td style="min-height:100px">{{povsInGroup}}</td>
+										</tr>
+									</tbody>
+								</table> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+    </div>
+    <div style="text-align: center">
+        <button type="button" class="btn btn-primary" ng-click="!(showAssignPovs=false)">Cancel</button>
+        <button type="button" class="btn btn-primary" ng-click="updatePOVs(povsGroup)">Submit</button>
+    </div><br>
+</div>	
+	
+<div class="panel panel-default">
+    <div class="table-responsive" ng-init="activeIdeaGroups()">
+        <table class="panel-body table table-hover">
+            <thead class="panel-heading">
+              <tr><!-- 
+                <th>HMW Question</th> -->
+                <th>Idea Group Name</th>
+                <!-- <th>Point Of Views</th> -->
+                <th class="ng-class:resize3">Created By</th>
+                <th class="ng-class:resize3">Updated Date</th>
+                <th style="text-align:left">
+               	<button class="btn btn-link btn-xs pull-left hidden-lg" ng-hide="tableSize3" ng-click="expand3()">Expand</button>
+                <button class="btn btn-link btn-xs pull-left hidden-lg" ng-show="tableSize3" ng-click="collapse3()">collapse</button>
+               	<label>Actions</label>
+               	<button type="button" ng-hide="showIdeaGroupFlag" class="btn btn-link btn-xs pull-right" ng-click="allIdeaGroups()">Show All</button>
+                <button type="button" class="btn btn-link btn-xs pull-right" ng-show="showIdeaGroupFlag" ng-click="activeIdeaGroups()">Show Active</button></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="ideaGroup in ideaGroupLists">
+              	<td><div title="{{ideaGroup.igname}}" ng-bind="::ideaGroup.igname"></div></td>
+                <td class="ng-class:resize3">{{ideaGroup.createdBy}}</td>
+                <td class="ng-class:resize3">{{ideaGroup.updatedDate}}</td>
+                <td style="text-align:left;">
+                 <button type="button" class="btn btn-primary btn-xs" ng-click="assignIdeas(ideaGroup)" permission="[2,5]">Assign Ideas</button>
+                 <button type="button" class="btn btn-primary btn-xs" ng-click="assignPovs(ideaGroup)" permission="[2,5]">Assign POVs</button>
+                 <button type="button" class="btn btn-primary btn-xs" ng-click="editIdeaGroup(ideaGroup)" ng-if="ideaGroup.deleteFlag==0" permission="[2,5]">Edit</button>
+                 <button type="button" class="btn btn-primary btn-xs" ng-click="viewIdeaGroup(ideaGroup.igname)" ng-if="ideaGroup.deleteFlag==1" permission="[2,5]">View</button>
+                 <button type="button" class="btn btn-primary btn-xs" ng-click="viewIdeaGroup(ideaGroup.igname)" permission="[3,4,6,7]">View</button>
+                 <button type="button" class="btn btn-primary btn-xs" ng-click="deactivateIdeaGroup(ideaGroup.igid)" ng-if="ideaGroup.deleteFlag==0" permission="[2,5]">Deactivate</button>
+                 <button type="button" class="btn btn-primary btn-xs" ng-click="activateIdeaGroup(ideaGroup.igid)" ng-if="ideaGroup.deleteFlag==1" permission="[2,5]">Activate</button>
+                </td>
+              </tr>                             
+            </tbody>
+        </table>
+    </div>
+</div>
+           
+
+<div style="text-align: center">    
+    <button type="button" class="btn btn-primary" ng-click="goToPrototype()" permission="[2,6]">Go To Prototype</button>
+</div></br>
+ 

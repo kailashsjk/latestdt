@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="DesignThinking" transaction-type="JTA">
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+     <jta-data-source>java:/designthinking</jta-data-source> 
+    
+    <class>com.techm.adms.dt.entity.Project</class>
+    <class>com.techm.adms.dt.entity.ProjectStage</class>
+	<class>com.techm.adms.dt.entity.HmwQuestion</class>
+	<class>com.techm.adms.dt.entity.Idea</class>
+	<class>com.techm.adms.dt.entity.IdeaCategory</class>
+	<class>com.techm.adms.dt.entity.IdeaFeedback</class>
+	<class>com.techm.adms.dt.entity.IdeaGroup</class>
+	<class>com.techm.adms.dt.entity.Media</class>
+	<class>com.techm.adms.dt.entity.MediaDocument</class>
+	<class>com.techm.adms.dt.entity.MediaType</class>
+	<class>com.techm.adms.dt.entity.ObservationCategory</class>
+	<class>com.techm.adms.dt.entity.Observation</class>
+	<class>com.techm.adms.dt.entity.Prototype</class>
+	<class>com.techm.adms.dt.entity.PrototypeFeedback</class>
+	<class>com.techm.adms.dt.entity.User</class>
+	<class>com.techm.adms.dt.entity.NeedsOrInsight</class>
+	<class>com.techm.adms.dt.entity.PrototypeDocument</class>
+	<class>com.techm.adms.dt.entity.AssignIdeaGroup</class>
+	<class>com.techm.adms.dt.entity.AssignHMW</class>
+	<class>com.techm.adms.dt.entity.PersonaDocument</class>
+   <properties>
+	    <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect"/>   
+	    <property name="hibernate.show_sql" value="true"/> 
+	    <property name="hibernate.format_sql" value="true"/>
+	    <property name="hibernate.connection.defaultNChar" value = "true"/> 
+	    <!-- <property name="hibernate.hbm2ddl.auto" value="update"/>  -->  
+	</properties>
+    </persistence-unit>
+</persistence>

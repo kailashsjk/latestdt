@@ -1,0 +1,152 @@
+<!-- <img id="mySpinner" src="/my/loading/spinner.gif" ng-show="loading" /> -->
+<div class="row" id="projectHead" name ="projectHead">
+    <div class="col-lg-8"><!-- <h3>Design Thinking Projects</h3>--></div> 
+    <div class="col-lg-4"><button type="button" class="btn btn-primary pull-right"  ng-click="addProjectButton()">Create Project</button></div>
+    <!-- <div style="text-align: center"><button type="button" class="btn btn-info" ng-click="!(show=true)">Create Project</button></div><br> -->
+</div>
+<br>
+<!-- CREATE PROJECT -->
+ <div class="panel" ng-show="show" style="border: 1px solid black" >
+    <div class="panel-heading head" style="text-align:center;">Create Project</div>
+   <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Project Name<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="projectName" ng-model="projectName"/>
+                <span ng-show="projectCreateError1">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Proj Id<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="projId" ng-model="projId" readonly/>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">IBG / IBU Name<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="ibuName" ng-model="ibuName"/>
+                <span ng-show="projectCreateError2">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Account Name<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="accountName" ng-model="accountName"/>
+                <span ng-show="projectCreateError3">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Project Description<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="researchtAgenda" ng-model="researchtAgenda"/>
+                <span ng-show="projectCreateError4">Required</span>
+            </div>
+        </div><br> 
+        <div style="text-align: center">
+            <button type="button" class="btn btn-primary" ng-click="cancelCreateProject()">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="addProject()">Submit</button><br>
+        </div>
+    </div>
+</div>
+
+<!-- UPDATE PROJECT -->
+<div class="panel" ng-show="showEdit" style="border: 1px solid black">
+    <div class="panel-heading head" style="text-align:center;">Edit Project</div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-4">Project Id<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="editProject.projId" readonly>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Project Name<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="editProject.projectName">
+                <span ng-show="projectUpdateError1">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">IBG / IBU Name<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="editProject.ibuName">
+                <span ng-show="projectUpdateError2">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Account Name<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="editProject.accountName">
+                <span ng-show="projectUpdateError3">Required</span>
+            </div>
+        </div><br>
+        <div class="row">
+            <div class="col-sm-4">Project Description<font color="red">*</font></div>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" ng-model="editProject.researchAgenda">
+                <span ng-show="projectUpdateError4">Required</span>
+            </div>
+        </div><br> 
+        <div style="text-align: center">
+            <button type="button" class="btn btn-primary" ng-click="cancelUpdate()">Cancel</button>
+            <button type="button" class="btn btn-primary" ng-click="updateProject(editProject)">Submit</button><br>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default" id="ptable">
+                    <div class="table-responsive" ng-init="getActiveProjects()">
+                        <table class="panel-body table table-hover">
+                            <thead class="panel-heading head">
+                              <tr>
+                                <!-- <th>S No</th> -->
+                                <th class="ng-class:resize">Project Id</th>
+                                <th>Project Name</th>
+                                <th class="ng-class:resize">IBG / IBU Name</th>
+                                <th class="ng-class:resize">Account Name</th>
+                                <th class="ng-class:resize">Created By</th>
+                                <th class="ng-class:resize">Updated Date</th>
+                                <th class="ng-class:resize">Stage</th>
+                                <!-- <th></th> -->
+                                <th style="text-align:left">
+                                <button class="btn btn-link btn-xs pull-left hidden-lg" ng-hide="tableSize" ng-click="expand()">Expand</button>
+                                <button class="btn btn-link btn-xs pull-left hidden-lg" ng-show="tableSize" ng-click="collapse()">collapse</button>
+                                <label>Actions</label> 
+                                <button type="button" ng-hide="showFlag" class="btn btn-link btn-xs pull-right" ng-click="getProjects()">Show All</button>
+                                <button type="button" class="btn btn-link btn-xs pull-right" ng-show="showFlag" ng-click="getActiveProjects()">Show Active</button>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr ng-repeat="allProject in allProjects">
+                                <td class="ng-class:resize">
+                                    <div>{{allProject.project.projId}}</div>
+                                </td> 
+                                <td>
+                                    <div class="sizeRestrict" title="{{allProject.project.projectName}}" ng-bind="::allProject.projectNameShort"></div>
+                                </td>
+                                <td class="ng-class:resize"><div class="sizeRestrict" title="{{allProject.project.ibuName}}" ng-bind="::allProject.project.ibuName"></div></td>
+                                <td class="ng-class:resize"><div class="sizeRestrict" title="{{allProject.project.accountName}}" ng-bind="::allProject.project.accountName"></div></td>
+                                <td class="ng-class:resize">
+                                    <div>{{allProject.project.user.firstName}}&nbsp;{{allProject.project.user.lastName}}</div>
+                                </td>
+                                <td class="ng-class:resize">
+                                    <div>{{allProject.project.createdDate}}</div>
+                                </td>
+                                <td class="ng-class:resize">
+                                    <div>{{allProject.project.projectStage.projectStageDescription}}</div>
+                                </td> 
+                                <td style="text-align:left" >      
+                                    <button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs" ng-click="selectProject(allProject.project)"  ng-show="hasRole(allProject.hasRole);">Go</button>
+                                    <button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs" ng-click="edit(allProject.project)" ng-if="allProject.project.deleteFlag==0" ng-show="isFacilitator(allProject.isFacilitator);">Edit</button>
+                                    <button style= "margin-right:10px" type="button" class="btn btn-primary btn-xs" ng-show="editingData[allProject.project.projectId]" ng-click="update(allProject.project)" ng-if="allProject.project.deleteFlag==0">Update</button>
+                                    <button type="button" class="btn btn-primary btn-xs"  ng-click="deactivate(allProject.project.projectId)" ng-if="allProject.project.deleteFlag==0" ng-show="isFacilitator(allProject.isFacilitator);">Close</button>
+                                </td>
+                                <!-- <td></td> -->
+                              </tr>                             
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
